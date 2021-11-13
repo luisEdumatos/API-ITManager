@@ -1,2 +1,2 @@
-# ITManager
-Sistema de gestão de TI terceirizada
+# API ITManager
+API para sistema de gestão de TI terceirizada
