@@ -34,6 +34,7 @@ API para sistema de gestão de TI terceirizada
 
 ###Fornecedor
 - .../fornecedores/ (Todos fornecedores)
+- .../fornecedores/:id/enderecos/ (Enderecos do fornecedor)
 - .../fornecedores/:id/ (Informações gerais do fornecedor)
 - .../fornecedores/:id/provedores/ (Se fornecedor é provedor de internet)
 - .../fornecedores/:id/licencas/ (Se fornecedor é provedor de licencas)
