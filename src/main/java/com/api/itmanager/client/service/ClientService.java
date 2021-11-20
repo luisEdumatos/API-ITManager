@@ -2,7 +2,7 @@ package com.api.itmanager.client.service;
 
 import com.api.itmanager.client.dto.mapper.ClientMapper;
 import com.api.itmanager.client.dto.request.ClientDTO;
-import com.api.itmanager.client.dto.response.MessageResponseDTO;
+import com.api.itmanager.util.response.MessageResponseDTO;
 import com.api.itmanager.client.entity.Client;
 import com.api.itmanager.client.repository.ClientRepository;
 import lombok.AllArgsConstructor;

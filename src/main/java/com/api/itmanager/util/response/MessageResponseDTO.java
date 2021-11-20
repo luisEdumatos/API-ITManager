@@ -1,4 +1,4 @@
-package com.api.itmanager.client.dto.response;
+package com.api.itmanager.util.response;
 
 import lombok.Builder;
 import lombok.Data;

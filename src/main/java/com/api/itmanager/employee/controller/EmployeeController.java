@@ -1,8 +1,8 @@
-package com.api.itmanager.client.controller;
+package com.api.itmanager.employee.controller;
 
-import com.api.itmanager.client.dto.request.ClientDTO;
+import com.api.itmanager.employee.dto.request.EmployeeDTO;
+import com.api.itmanager.employee.service.EmployeeService;
 import com.api.itmanager.util.response.MessageResponseDTO;
-import com.api.itmanager.client.service.ClientService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,16 +12,15 @@ import javax.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/client")
+@RequestMapping("/api/employee")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class ClientController {
+public class EmployeeController {
 
-    private ClientService clientService;
+    private EmployeeService employeeService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponseDTO createClient(@RequestBody @Valid ClientDTO clientDTO) {
-        return clientService.createClient(clientDTO);
+    public MessageResponseDTO createEmployee(@RequestBody @Valid EmployeeDTO employeeDTO) {
+        return employeeService.createEmployee(employeeDTO);
     }
-
 }
