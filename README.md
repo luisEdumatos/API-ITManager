@@ -3,7 +3,7 @@ API para sistema de gestão de TI terceirizada
 
 ## End-Points
 ### Cliente
-- .../clientes/ (Todos clientes)
+- .../client/ (Todos clientes) -> Prontos: POST
 - .../clientes/:id/ (Informações gerais do cliente)
 - .../clientes/:id/colaboradores/ (Colaboradores de cliente)
 - .../clientes/:id/estacoes/ (Estacoes de trabalho do cliente)
@@ -12,13 +12,13 @@ API para sistema de gestão de TI terceirizada
 - .../clientes/:id/enderecos/ (Enderecos do cliente)
 
 ### Colaborador
-- .../clientes/:id/colaboradores/ (Todos colaboradores do cliente)
+- .../clientes/:id/colaboradores/ (Todos colaboradores do cliente) -> PRontos: POST (Obs: Alterar rota do endpoint)
 - .../clientes/:id/colaboradores/:id (Informações gerais do colaborador)
 - .../clientes/:id/colaboradores/:id/credenciais/ (Credenciais do colaborador)
 - .../clientes/:id/colaboradores/:id/estacoes/ (Estações do colaborador) 
 - .../clientes/:id/ (Retorno ao cliente que pertence o colaborador)
 
-###Estações
+### Estações
 - .../clientes/:id/estacoes/ (Todas estações do cliente)
 - .../clientes/:id/estacoes/:id/ (Informações gerais da estação)
 - .../clientes/:id/estacoes/:id/licencas/ (Licenças da estações)
@@ -26,13 +26,13 @@ API para sistema de gestão de TI terceirizada
 - .../clientes/:id/estacoes/:id/colaboradores/ (Colaboradores da estação)
 - .../clientes/:id/ (Retorno ao cliente que pertence a estação)
 
-###Credenciais
+### Credenciais
 - .../clientes/:id/estacoes/:id/credenciais/ (Credenciais da estação)
 - .../clientes/:id/estacoes/:id/credenciais/:id/ (Credencial especifica da estação)
 - .../clientes/:id/colaboradores/:id/credenciais/ (Credenciais do colaborador)
 - .../clientes/:id/colaboradores/:id/credenciais/:id/ (Credencial especifica do colaborador)
 
-###Fornecedor
+### Fornecedor
 - .../fornecedores/ (Todos fornecedores)
 - .../fornecedores/:id/enderecos/ (Enderecos do fornecedor)
 - .../fornecedores/:id/ (Informações gerais do fornecedor)
@@ -40,18 +40,18 @@ API para sistema de gestão de TI terceirizada
 - .../fornecedores/:id/licencas/ (Se fornecedor é provedor de licencas)
 - .../fornecedores/:id/clientes/ (Clientes atendidos pelo fornecedor) 
 
-###Infraestrutura
+### Infraestrutura
 - .../clientes/:id/infraestrutura/:id/ (Informações gerais da infraestrutura)
 - .../clientes/:id/infraestrutura/:id/equipamentos/ (Equipamentos da infraestrutura)
 
-###Equipamento
+### Equipamento
 - .../clientes/:id/infraestrutura/:id/equipamentos/:id (Informações do equipamento)
 - .../clientes/:id/infraestrutura/:id/equipamentos/:id/credenciais (Credenciais do equipamento)
 
-###Provedor
+### Provedor
 - .../fornecedores/:id/provedores/:id/ (Informações da internet provida) 
 
-###Licença
+### Licença
 - .../fornecedores/:id/licencas/:id/ (Informações da licença)
 
 
