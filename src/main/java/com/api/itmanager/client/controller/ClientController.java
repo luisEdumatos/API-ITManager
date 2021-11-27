@@ -19,15 +19,15 @@ public class ClientController {
 
     private ClientService clientService;
 
+    @GetMapping
+    public List<ClientDTO> listAll() {
+        return clientService.listall();
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MessageResponseDTO createClient(@RequestBody @Valid ClientDTO clientDTO) {
         return clientService.createClient(clientDTO);
-    }
-
-    @GetMapping
-    public List<ClientDTO> listAll() {
-        return clientService.listall();
     }
 
 }
