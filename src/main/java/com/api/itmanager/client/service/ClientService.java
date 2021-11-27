@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ClientService {
@@ -29,4 +32,10 @@ public class ClientService {
                 .build();
     }
 
+    public List<ClientDTO> listall() {
+        List<Client> allClients = clientRepository.findAll();
+        return allClients.stream()
+                .map(clientMapper::toDTO)
+                .collect(Collectors.toList());
+    }
 }

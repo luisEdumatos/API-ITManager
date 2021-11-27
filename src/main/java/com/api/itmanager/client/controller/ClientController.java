@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -22,6 +23,11 @@ public class ClientController {
     @ResponseStatus(HttpStatus.CREATED)
     public MessageResponseDTO createClient(@RequestBody @Valid ClientDTO clientDTO) {
         return clientService.createClient(clientDTO);
+    }
+
+    @GetMapping
+    public List<ClientDTO> listAll() {
+        return clientService.listall();
     }
 
 }
