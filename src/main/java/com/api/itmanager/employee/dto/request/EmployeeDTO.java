@@ -1,5 +1,6 @@
 package com.api.itmanager.employee.dto.request;
 
+import com.api.itmanager.client.dto.request.ClientDTO;
 import com.api.itmanager.client.entity.Client;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,7 @@ public class EmployeeDTO {
     private Long id;
 
     @NotNull
-    private Client client;
+    private ClientDTO clientDTO;
 
     @NotEmpty
     @Size(min = 5, max = 50)

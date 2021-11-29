@@ -19,6 +19,13 @@ public class ClientService {
     private ClientRepository clientRepository;
     private final ClientMapper clientMapper = ClientMapper.INSTANCE;
 
+    public List<ClientDTO> listall() {
+        List<Client> allClients = clientRepository.findAll();
+        return allClients.stream()
+                .map(clientMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
     public MessageResponseDTO createClient(ClientDTO clientDTO) {
         Client clientToSave = clientMapper.toModel(clientDTO);
         Client savedClient = clientRepository.save(clientToSave);
@@ -30,12 +37,5 @@ public class ClientService {
                 .builder()
                 .message(msg + id)
                 .build();
-    }
-
-    public List<ClientDTO> listall() {
-        List<Client> allClients = clientRepository.findAll();
-        return allClients.stream()
-                .map(clientMapper::toDTO)
-                .collect(Collectors.toList());
     }
 }
