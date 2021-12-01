@@ -1,6 +1,7 @@
 package com.api.itmanager;
 
 import com.api.itmanager.client.controller.ClientController;
+import com.api.itmanager.client.dto.mapper.ClientMapper;
 import com.api.itmanager.client.dto.request.ClientDTO;
 import com.api.itmanager.client.entity.Client;
 import com.api.itmanager.employee.controller.EmployeeController;
@@ -48,8 +49,14 @@ public class EmployeeControllerTest extends ApiItmanagerApplicationTests {
 
         clientController.createClient(clientDTO);
 
+        Client client = new Client();
+        client.setId(1L);
+        client.setName(clientDTO.getName());
+        client.setCnpj(clientDTO.getCnpj());
+        client.setAddress(clientDTO.getAddress());
+
         EmployeeDTO employeeDTO = new EmployeeDTO();
-        employeeDTO.setClientDTO(clientDTO);
+        employeeDTO.setClient(client);
         employeeDTO.setName("Colaborador de Teste");
         employeeDTO.setAdmissionDate("01/01/2001");
         employeeDTO.setIntegrationDate("02/01/2001");

@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class ClientDTO {
 
+    private Long id;
+
     @NotEmpty
     @Size(min = 5, max = 50)
     private String name;

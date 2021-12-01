@@ -20,7 +20,7 @@ public class EmployeeDTO {
     private Long id;
 
     @NotNull
-    private ClientDTO clientDTO;
+    private Client client;
 
     @NotEmpty
     @Size(min = 5, max = 50)
