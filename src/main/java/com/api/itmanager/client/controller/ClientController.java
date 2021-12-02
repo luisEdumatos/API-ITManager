@@ -1,6 +1,7 @@
 package com.api.itmanager.client.controller;
 
 import com.api.itmanager.client.dto.request.ClientDTO;
+import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.MessageResponseDTO;
 import com.api.itmanager.client.service.ClientService;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,11 @@ public class ClientController {
     @GetMapping
     public List<ClientDTO> listAll() {
         return clientService.listall();
+    }
+
+    @GetMapping("/{id}")
+    public ClientDTO findById(@PathVariable Long id) throws ClientNotFoundException {
+        return clientService.findById(id);
     }
 
     @PostMapping

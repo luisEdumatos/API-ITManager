@@ -2,6 +2,7 @@ package com.api.itmanager.client.service;
 
 import com.api.itmanager.client.dto.mapper.ClientMapper;
 import com.api.itmanager.client.dto.request.ClientDTO;
+import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.MessageResponseDTO;
 import com.api.itmanager.client.entity.Client;
 import com.api.itmanager.client.repository.ClientRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,5 +39,18 @@ public class ClientService {
                 .builder()
                 .message(msg + id)
                 .build();
+    }
+
+    public ClientDTO findById(Long id) throws ClientNotFoundException {
+        Client client = verifyExists(id);
+        return clientMapper.toDTO(client);
+    }
+
+    private Client verifyExists(Long id) throws ClientNotFoundException {
+        Optional<Client> optionalClient = clientRepository.findById(id);
+        if (optionalClient.isEmpty()) {
+            throw new ClientNotFoundException(id);
+        }
+        return optionalClient.get();
     }
 }
