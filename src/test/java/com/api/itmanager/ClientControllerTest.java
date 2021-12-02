@@ -49,6 +49,20 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
     }
 
     @Test
+    public void testCreateClientWithError() throws Exception {
+
+        ClientDTO clientDTO = new ClientDTO();
+        clientDTO.setName("Cliente Teste S/A");
+        clientDTO.setCnpj("12.345.678/0001-999");
+        clientDTO.setAddress("Avenida Teste Unitario, 123, Jardim Testes");
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/api/client")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(clientDTO)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
     public void testFindByIdIfClientExists() throws Exception {
         ClientDTO clientDTO = new ClientDTO();
         clientDTO.setName("Cliente Teste S/A");
