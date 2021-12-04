@@ -1,7 +1,6 @@
 package com.api.itmanager;
 
 import com.api.itmanager.client.controller.ClientController;
-import com.api.itmanager.client.dto.mapper.ClientMapper;
 import com.api.itmanager.client.dto.request.ClientDTO;
 import com.api.itmanager.client.entity.Client;
 import com.api.itmanager.employee.controller.EmployeeController;
@@ -69,5 +68,36 @@ public class EmployeeControllerTest extends ApiItmanagerApplicationTests {
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(employeeDTO)))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+
+    @Test
+    public void testCreateEmployeeWithError() throws Exception {
+        ClientDTO clientDTO = new ClientDTO();
+        clientDTO.setName("Cliente Teste S/A");
+        clientDTO.setCnpj("25.123.987/0001-08");
+        clientDTO.setAddress("Avenida Teste Unitario, 123, Jardim Testes");
+
+        clientController.createClient(clientDTO);
+
+        Client client = new Client();
+        client.setId(25L);
+        client.setName(clientDTO.getName());
+        client.setCnpj(clientDTO.getCnpj());
+        client.setAddress(clientDTO.getAddress());
+
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        employeeDTO.setClient(client);
+        employeeDTO.setName("Colaborador de Teste");
+        employeeDTO.setAdmissionDate("01/01/2001123456");
+        employeeDTO.setIntegrationDate("02/01/2001");
+        employeeDTO.setResignationDate("02/02/2022");
+        employeeDTO.setMainPhoneNumber("35998765432");
+
+        System.out.println(objectMapper.writeValueAsString(employeeDTO));
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/api/employee")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(employeeDTO)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 }

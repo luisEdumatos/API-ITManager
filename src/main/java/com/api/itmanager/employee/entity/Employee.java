@@ -2,6 +2,8 @@ package com.api.itmanager.employee.entity;
 
 import com.api.itmanager.client.entity.Client;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +24,6 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "client_id")
-    @JsonIgnore
     private Client client;
 
     @Column(nullable = false)

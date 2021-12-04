@@ -2,6 +2,8 @@ package com.api.itmanager.employee.dto.request;
 
 import com.api.itmanager.client.dto.request.ClientDTO;
 import com.api.itmanager.client.entity.Client;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,4 +40,5 @@ public class EmployeeDTO {
 
     @Size(min = 10, max = 12)
     private String mainPhoneNumber;
+
 }

@@ -22,7 +22,7 @@ public class ClientController {
 
     @GetMapping
     public List<ClientDTO> listAll() {
-        return clientService.listall();
+        return clientService.listAll();
     }
 
     @GetMapping("/{id}")

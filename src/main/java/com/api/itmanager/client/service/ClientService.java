@@ -21,7 +21,7 @@ public class ClientService {
     private ClientRepository clientRepository;
     private final ClientMapper clientMapper = ClientMapper.INSTANCE;
 
-    public List<ClientDTO> listall() {
+    public List<ClientDTO> listAll() {
         List<Client> allClients = clientRepository.findAll();
         return allClients.stream()
                 .map(clientMapper::toDTO)

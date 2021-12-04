@@ -1,6 +1,7 @@
 package com.api.itmanager.client.entity;
 
 import com.api.itmanager.employee.entity.Employee;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,5 +35,6 @@ public class Client {
             mappedBy = "client",
             cascade = CascadeType.REMOVE
     )
+    @JsonIgnore
     private List<Employee> employees = new ArrayList<>();
 }
