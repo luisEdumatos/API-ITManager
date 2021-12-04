@@ -97,7 +97,36 @@ public class EmployeeControllerTest extends ApiItmanagerApplicationTests {
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
-    public void testFindByIdIfClientNotExists() throws Exception {
+    @Test
+    public void testFindByIdIfEmployeeExists() throws Exception {
+        ClientDTO clientDTO = new ClientDTO();
+        clientDTO.setName("Cliente Teste S/A");
+        clientDTO.setCnpj("85.735.951/0002-52");
+        clientDTO.setAddress("Avenida Teste Unitario, 123, Jardim Testes");
+
+        clientController.createClient(clientDTO);
+
+        Client client = new Client();
+        client.setId(1L);
+        client.setName(clientDTO.getName());
+        client.setCnpj(clientDTO.getCnpj());
+        client.setAddress(clientDTO.getAddress());
+
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        employeeDTO.setClient(client);
+        employeeDTO.setName("Colaborador de Teste");
+        employeeDTO.setAdmissionDate("01/01/2001");
+        employeeDTO.setIntegrationDate("02/01/2001");
+        employeeDTO.setResignationDate("02/02/2022");
+        employeeDTO.setMainPhoneNumber("35998765432");
+
+        employeeController.createEmployee(employeeDTO);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/employee/1")).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testFindByIdIfEmployeeNotExists() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/employee/25")).andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 }
