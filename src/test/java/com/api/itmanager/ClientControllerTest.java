@@ -1,6 +1,5 @@
 package com.api.itmanager;
 
-import com.api.itmanager.ApiItmanagerApplicationTests;
 import com.api.itmanager.client.controller.ClientController;
 import com.api.itmanager.client.dto.request.ClientDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,18 +23,18 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
     @Autowired
     private ClientController clientController;
 
-    private static ClientDTO clientTeste;
+    private static ClientDTO clientDTOMock;
 
     @BeforeAll
     public void setUp() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(clientController).build();
     }
 
-    private void createClientDTO(String cnpj) {
-        clientTeste = new ClientDTO();
-        clientTeste.setName("Cliente Teste S/A");
-        clientTeste.setCnpj(cnpj);
-        clientTeste.setAddress("Avenida Teste Unitario, 123, Jardim Testes");
+    private void createClientDTOMock(String cnpj) {
+        clientDTOMock = new ClientDTO();
+        clientDTOMock.setName("Cliente Teste S/A");
+        clientDTOMock.setCnpj(cnpj);
+        clientDTOMock.setAddress("Avenida Teste Unitario, 123, Jardim Testes");
     }
 
     @Test
@@ -45,26 +44,26 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
 
     @Test
     public void testCreateClient() throws Exception {
-        this.createClientDTO("12.345.678/0001-99");
+        this.createClientDTOMock("12.345.678/0001-99");
         this.mockMvc.perform(MockMvcRequestBuilders.post("/api/client")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(clientTeste)))
+                .content(objectMapper.writeValueAsString(clientDTOMock)))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
     public void testCreateClientWithError() throws Exception {
-        this.createClientDTO("12.345.678/0001-999");
+        this.createClientDTOMock("12.345.678/0001-999");
         this.mockMvc.perform(MockMvcRequestBuilders.post("/api/client")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(clientTeste)))
+                .content(objectMapper.writeValueAsString(clientDTOMock)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
     @Test
     public void testFindByIdIfClientExists() throws Exception {
-        this.createClientDTO("12.123.555/0001-99");
-        clientController.createClient(clientTeste);
+        this.createClientDTOMock("12.123.555/0001-99");
+        clientController.createClient(clientDTOMock);
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/client/1")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 

@@ -29,9 +29,38 @@ public class EmployeeControllerTest extends ApiItmanagerApplicationTests {
     @Autowired
     private ClientController clientController;
 
+    private static ClientDTO clientDTOMock;
+    private static Client clientMock;
+    private static EmployeeDTO employeeDTOMock;
+
     @BeforeAll
     public void setUp() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(employeeController).build();
+    }
+
+    private void createClientDTOMock(String cnpj) {
+        clientDTOMock = new ClientDTO();
+        clientDTOMock.setName("Cliente Teste S/A");
+        clientDTOMock.setCnpj(cnpj);
+        clientDTOMock.setAddress("Avenida Teste Unitario, 123, Jardim Testes");
+    }
+
+    private void createClientMock(Long id) {
+        clientMock= new Client();
+        clientMock.setId(id);
+        clientMock.setName(clientDTOMock.getName());
+        clientMock.setCnpj(clientDTOMock.getCnpj());
+        clientMock.setAddress(clientDTOMock.getAddress());
+    }
+
+    private void createEmployeeDTOMock(String admissionDate) {
+        employeeDTOMock = new EmployeeDTO();
+        employeeDTOMock.setClient(clientMock);
+        employeeDTOMock.setName("Colaborador de Teste");
+        employeeDTOMock.setAdmissionDate(admissionDate);
+        employeeDTOMock.setIntegrationDate("02/01/2001");
+        employeeDTOMock.setResignationDate("02/02/2022");
+        employeeDTOMock.setMainPhoneNumber("35998765432");
     }
 
     @Test
@@ -41,86 +70,40 @@ public class EmployeeControllerTest extends ApiItmanagerApplicationTests {
 
     @Test
     public void testCreateEmployee() throws Exception {
-        ClientDTO clientDTO = new ClientDTO();
-        clientDTO.setName("Cliente Teste S/A");
-        clientDTO.setCnpj("12.123.678/0001-99");
-        clientDTO.setAddress("Avenida Teste Unitario, 123, Jardim Testes");
+        this.createClientDTOMock("12.123.678/0001-99");
+        this.createClientMock(1L);
+        clientController.createClient(clientDTOMock);
 
-        clientController.createClient(clientDTO);
-
-        Client client = new Client();
-        client.setId(1L);
-        client.setName(clientDTO.getName());
-        client.setCnpj(clientDTO.getCnpj());
-        client.setAddress(clientDTO.getAddress());
-
-        EmployeeDTO employeeDTO = new EmployeeDTO();
-        employeeDTO.setClient(client);
-        employeeDTO.setName("Colaborador de Teste");
-        employeeDTO.setAdmissionDate("01/01/2001");
-        employeeDTO.setIntegrationDate("02/01/2001");
-        employeeDTO.setResignationDate("02/02/2022");
-        employeeDTO.setMainPhoneNumber("35998765432");
+        this.createEmployeeDTOMock("01/01/2001");
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/api/employee")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(employeeDTO)))
+                .content(objectMapper.writeValueAsString(employeeDTOMock)))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
     public void testCreateEmployeeWithError() throws Exception {
-        ClientDTO clientDTO = new ClientDTO();
-        clientDTO.setName("Cliente Teste S/A");
-        clientDTO.setCnpj("25.123.987/0001-08");
-        clientDTO.setAddress("Avenida Teste Unitario, 123, Jardim Testes");
+        this.createClientDTOMock("25.123.987/0001-08");
+        this.createClientMock(1L);
+        clientController.createClient(clientDTOMock);
 
-        clientController.createClient(clientDTO);
-
-        Client client = new Client();
-        client.setId(25L);
-        client.setName(clientDTO.getName());
-        client.setCnpj(clientDTO.getCnpj());
-        client.setAddress(clientDTO.getAddress());
-
-        EmployeeDTO employeeDTO = new EmployeeDTO();
-        employeeDTO.setClient(client);
-        employeeDTO.setName("Colaborador de Teste");
-        employeeDTO.setAdmissionDate("01/01/2001123456");
-        employeeDTO.setIntegrationDate("02/01/2001");
-        employeeDTO.setResignationDate("02/02/2022");
-        employeeDTO.setMainPhoneNumber("35998765432");
+        this.createEmployeeDTOMock("01/01/2001123");
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/api/employee")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(employeeDTO)))
+                .content(objectMapper.writeValueAsString(employeeDTOMock)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
     @Test
     public void testFindByIdIfEmployeeExists() throws Exception {
-        ClientDTO clientDTO = new ClientDTO();
-        clientDTO.setName("Cliente Teste S/A");
-        clientDTO.setCnpj("85.735.951/0002-52");
-        clientDTO.setAddress("Avenida Teste Unitario, 123, Jardim Testes");
+        this.createClientDTOMock("85.735.951/0002-52");
+        this.createClientMock(1L);
+        clientController.createClient(clientDTOMock);
 
-        clientController.createClient(clientDTO);
-
-        Client client = new Client();
-        client.setId(1L);
-        client.setName(clientDTO.getName());
-        client.setCnpj(clientDTO.getCnpj());
-        client.setAddress(clientDTO.getAddress());
-
-        EmployeeDTO employeeDTO = new EmployeeDTO();
-        employeeDTO.setClient(client);
-        employeeDTO.setName("Colaborador de Teste");
-        employeeDTO.setAdmissionDate("01/01/2001");
-        employeeDTO.setIntegrationDate("02/01/2001");
-        employeeDTO.setResignationDate("02/02/2022");
-        employeeDTO.setMainPhoneNumber("35998765432");
-
-        employeeController.createEmployee(employeeDTO);
+        this.createEmployeeDTOMock("01/01/2001");
+        employeeController.createEmployee(employeeDTOMock);
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/employee/1")).andExpect(MockMvcResultMatchers.status().isOk());
     }
