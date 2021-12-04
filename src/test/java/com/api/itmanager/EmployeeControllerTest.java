@@ -62,8 +62,6 @@ public class EmployeeControllerTest extends ApiItmanagerApplicationTests {
         employeeDTO.setResignationDate("02/02/2022");
         employeeDTO.setMainPhoneNumber("35998765432");
 
-        System.out.println(objectMapper.writeValueAsString(employeeDTO));
-
         this.mockMvc.perform(MockMvcRequestBuilders.post("/api/employee")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(employeeDTO)))
@@ -93,12 +91,13 @@ public class EmployeeControllerTest extends ApiItmanagerApplicationTests {
         employeeDTO.setResignationDate("02/02/2022");
         employeeDTO.setMainPhoneNumber("35998765432");
 
-        System.out.println(objectMapper.writeValueAsString(employeeDTO));
-
         this.mockMvc.perform(MockMvcRequestBuilders.post("/api/employee")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(employeeDTO)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
-    
+
+    public void testFindByIdIfClientNotExists() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/employee/25")).andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 }
