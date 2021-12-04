@@ -2,6 +2,7 @@ package com.api.itmanager.employee.controller;
 
 import com.api.itmanager.employee.dto.request.EmployeeDTO;
 import com.api.itmanager.employee.service.EmployeeService;
+import com.api.itmanager.util.exception.EmployeeNotFoundException;
 import com.api.itmanager.util.response.MessageResponseDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,11 @@ public class EmployeeController {
     @GetMapping
     public List<EmployeeDTO> listAll() {
         return employeeService.listAll();
+    }
+
+    @GetMapping("/{id}")
+    public EmployeeDTO findById(@PathVariable Long id) throws EmployeeNotFoundException {
+        return employeeService.findById(id);
     }
 
     @PostMapping
