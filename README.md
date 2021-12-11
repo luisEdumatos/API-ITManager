@@ -1,7 +1,7 @@
 # API ITManager
 API para sistema de gestão de TI terceirizada
 
-***Em construção***
+***Em construção...***
 
 Para documentação da API, está sendo utilizado o Swagger. Ao executar o projeto, acesso o endereço http://localhost:8080/swagger-ui.html#/ para acessar a documentação completa do Swagger. 
 
