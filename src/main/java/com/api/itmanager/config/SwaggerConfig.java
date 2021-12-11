@@ -25,38 +25,6 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
-                .useDefaultResponseMessages(false)
-                .globalResponseMessage(RequestMethod.POST, responseMessageForPOST())
-                .globalResponseMessage(RequestMethod.GET, responseMessageForGET());
-    }
-
-    private List<ResponseMessage> responseMessageForPOST() {
-        return new ArrayList<ResponseMessage>() {{
-            add(new ResponseMessageBuilder()
-                    .code(500)
-                    .message("Internal Server Error")
-                    .responseModel(new ModelRef("Internal Server Error"))
-                    .build());
-            add(new ResponseMessageBuilder()
-                    .code(400)
-                    .message("Bad Request")
-                    .responseModel(new ModelRef("Bad Request"))
-                    .build());
-        }};
-    }
-
-    private List<ResponseMessage> responseMessageForGET() {
-        return new ArrayList<ResponseMessage>() {{
-            add(new ResponseMessageBuilder()
-                    .code(404)
-                    .message("Not Found")
-                    .responseModel(new ModelRef("Not Found"))
-                    .build());
-            add(new ResponseMessageBuilder()
-                    .code(400)
-                    .message("Bad Request")
-                    .responseModel(new ModelRef("Bad Request"))
-                    .build());
-        }};
+                .useDefaultResponseMessages(false);
     }
 }
