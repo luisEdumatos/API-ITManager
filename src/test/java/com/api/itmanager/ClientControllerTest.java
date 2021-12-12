@@ -83,6 +83,6 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
         this.mockMvc.perform(MockMvcRequestBuilders.put("/api/client/1")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(clientDTOMock)))
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
