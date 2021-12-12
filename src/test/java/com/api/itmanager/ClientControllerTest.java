@@ -71,4 +71,18 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
     public void testFindByIdIfClientNotExists() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/client/25")).andExpect(MockMvcResultMatchers.status().isNotFound());
     }
+
+    @Test
+    public void testUpdateClient() throws Exception{
+        this.createClientDTOMock("85.159.351/0002-15");
+        clientController.createClient(clientDTOMock);
+        clientDTOMock.setName("Novo Nome Teste");
+        clientDTOMock.setCnpj("15.159.351/0002-15");
+        clientDTOMock.setAddress("Novo avenida dos Testes, 123");
+
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/api/client/1")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(clientDTOMock)))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
 }

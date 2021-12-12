@@ -54,4 +54,13 @@ public class ClientController {
     public MessageResponseDTO createClient(@RequestBody @Valid ClientDTO clientDTO) {
         return clientService.createClient(clientDTO);
     }
+
+    @ApiOperation(value = "Atualiza dados de um cliente existente")
+    @ApiResponses(value = {
+
+    })
+    @PutMapping(value = "/{id}", produces = "application/json")
+    public MessageResponseDTO updateById(@PathVariable Long id, @RequestBody @Valid ClientDTO clientDTO) throws ClientNotFoundException {
+        return clientService.updateById(id, clientDTO);
+    }
 }
