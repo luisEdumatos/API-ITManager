@@ -5,6 +5,7 @@ import com.api.itmanager.client.dto.request.ClientDTO;
 import com.api.itmanager.client.entity.Client;
 import com.api.itmanager.employee.controller.EmployeeController;
 import com.api.itmanager.employee.dto.request.EmployeeDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -111,5 +112,49 @@ public class EmployeeControllerTest extends ApiItmanagerApplicationTests {
     @Test
     public void testFindByIdIfEmployeeNotExists() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/employee/25")).andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    public void testUpdateEmployee() throws Exception {
+        this.createClientDTOMock("21.321.798/0001-99");
+        this.createClientMock(1L);
+        clientController.createClient(clientDTOMock);
+
+        this.createEmployeeDTOMock("01/01/2001");
+
+        employeeController.createEmployee(employeeDTOMock);
+
+        employeeDTOMock.setName("Novo Colaborador Teste");
+        employeeDTOMock.setAdmissionDate("12/12/2021");
+        employeeDTOMock.setIntegrationDate("12/12/2021");
+        employeeDTOMock.setResignationDate("12/12/2021");
+        employeeDTOMock.setMainPhoneNumber("32122112");
+
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/api/employee/1")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(employeeDTOMock)))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testUpdateEmployeeWithError() throws Exception {
+        this.createClientDTOMock("21.321.798/0001-99");
+        this.createClientMock(1L);
+        clientController.createClient(clientDTOMock);
+
+        this.createEmployeeDTOMock("01/01/2001");
+
+        employeeController.createEmployee(employeeDTOMock);
+
+        employeeDTOMock.setName("Novo Colaborador Teste");
+        employeeDTOMock.setAdmissionDate("12/12/2021123456");
+        employeeDTOMock.setIntegrationDate("12/12/2021");
+        employeeDTOMock.setResignationDate("12/12/2021");
+        employeeDTOMock.setMainPhoneNumber("32122112");
+
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/api/employee/1")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(employeeDTOMock)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 }
