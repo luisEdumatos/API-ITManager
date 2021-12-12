@@ -58,8 +58,8 @@ public class ClientController {
     @ApiOperation(value = "Atualiza dados de um cliente existente")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Cliente atualizado com sucesso"),
-            @ApiResponse(code = 400, message = "Erro de passagem de parâmetro"),
-            @ApiResponse(code = 400, message = "Falta de ID no parâmetro"),
+            @ApiResponse(code = 400, message = "Erro de passagem de parâmetro ou na validação dos campos"),
+            @ApiResponse(code = 405, message = "Falta de ID no parâmetro"),
             @ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado"),
     })
     @PutMapping(value = "/{id}", produces = "application/json")

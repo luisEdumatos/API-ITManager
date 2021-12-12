@@ -85,4 +85,18 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
                 .content(objectMapper.writeValueAsString(clientDTOMock)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
+
+    @Test
+    public void testUpdateClientWithError() throws Exception{
+        this.createClientDTOMock("85.999.351/0003-15");
+        clientController.createClient(clientDTOMock);
+        clientDTOMock.setName("Novo Nome Teste");
+        clientDTOMock.setCnpj("15.159.351/0002-15123456");
+        clientDTOMock.setAddress("Novo avenida dos Testes, 123");
+
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/api/client/1")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(clientDTOMock)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
 }
