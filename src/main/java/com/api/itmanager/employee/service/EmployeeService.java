@@ -28,10 +28,27 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
+    public EmployeeDTO findById(Long id) throws EmployeeNotFoundException {
+        Employee employee = verifyExists(id);
+        return employeeMapper.toDTO(employee);
+    }
+
     public MessageResponseDTO createEmployee(EmployeeDTO employeeDTO) {
         Employee employeeToSave = employeeMapper.toModel(employeeDTO);
         Employee savedEmployee = employeeRepository.save(employeeToSave);
         return createMessageResponse(savedEmployee.getId(), "Create employee with ID ");
+    }
+
+    public MessageResponseDTO updateByID(Long id, EmployeeDTO employeeDTO) throws EmployeeNotFoundException {
+        Employee employeeToUpdate = verifyExists(id);
+        employeeToUpdate.setClient(employeeDTO.getClient());
+        employeeToUpdate.setName(employeeDTO.getName());
+        employeeToUpdate.setAdmissionDate(employeeDTO.getAdmissionDate());
+        employeeToUpdate.setIntegrationDate(employeeDTO.getIntegrationDate());
+        employeeToUpdate.setResignationDate(employeeDTO.getResignationDate());
+        employeeToUpdate.setMainPhoneNumber(employeeDTO.getMainPhoneNumber());
+        employeeRepository.save(employeeToUpdate);
+        return createMessageResponse(employeeToUpdate.getId(), "Updated employee with ID ");
     }
 
     private MessageResponseDTO createMessageResponse(Long id, String msg) {
@@ -39,11 +56,6 @@ public class EmployeeService {
                 .builder()
                 .message(msg + id)
                 .build();
-    }
-
-    public EmployeeDTO findById(Long id) throws EmployeeNotFoundException {
-        Employee employee = verifyExists(id);
-        return employeeMapper.toDTO(employee);
     }
 
     public Employee verifyExists(Long id) throws EmployeeNotFoundException {

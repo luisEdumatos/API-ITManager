@@ -53,4 +53,16 @@ public class EmployeeController {
     public MessageResponseDTO createEmployee(@RequestBody @Valid EmployeeDTO employeeDTO) {
         return employeeService.createEmployee(employeeDTO);
     }
+
+    @ApiOperation(value = "Atualiza dados de um colaborador existente")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Colaborador atualizado com sucesso"),
+            @ApiResponse(code = 400, message = "Erro de passagem de parâmetro ou na validação dos campos"),
+            @ApiResponse(code = 405, message = "Falta de ID no parâmetro"),
+            @ApiResponse(code = 404, message = "Colaborador não encontrado para o ID informado"),
+    })
+    @PutMapping(value = "/{id}", produces = "application/json")
+    public MessageResponseDTO updateByID(@PathVariable Long id, @RequestBody @Valid EmployeeDTO employeeDTO) throws EmployeeNotFoundException {
+        return employeeService.updateByID(id, employeeDTO);
+    }
 }

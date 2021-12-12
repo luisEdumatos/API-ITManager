@@ -121,14 +121,15 @@ public class EmployeeControllerTest extends ApiItmanagerApplicationTests {
         clientController.createClient(clientDTOMock);
 
         this.createEmployeeDTOMock("01/01/2001");
-
         employeeController.createEmployee(employeeDTOMock);
 
-        employeeDTOMock.setName("Novo Colaborador Teste");
-        employeeDTOMock.setAdmissionDate("12/12/2021");
-        employeeDTOMock.setIntegrationDate("12/12/2021");
-        employeeDTOMock.setResignationDate("12/12/2021");
-        employeeDTOMock.setMainPhoneNumber("32122112");
+
+        employeeDTOMock.setClient(clientMock);
+        employeeDTOMock.setName("Atualização Colaborador de Teste");
+        employeeDTOMock.setAdmissionDate("01/01/2022");
+        employeeDTOMock.setIntegrationDate("02/01/2022");
+        employeeDTOMock.setResignationDate("02/02/2022");
+        employeeDTOMock.setMainPhoneNumber("35988714685");
 
         this.mockMvc.perform(MockMvcRequestBuilders.put("/api/employee/1")
                 .contentType("application/json")
@@ -138,7 +139,7 @@ public class EmployeeControllerTest extends ApiItmanagerApplicationTests {
 
     @Test
     public void testUpdateEmployeeWithError() throws Exception {
-        this.createClientDTOMock("21.321.798/0001-99");
+        this.createClientDTOMock("21.321.819/0002-90");
         this.createClientMock(1L);
         clientController.createClient(clientDTOMock);
 
@@ -146,10 +147,11 @@ public class EmployeeControllerTest extends ApiItmanagerApplicationTests {
 
         employeeController.createEmployee(employeeDTOMock);
 
-        employeeDTOMock.setName("Novo Colaborador Teste");
-        employeeDTOMock.setAdmissionDate("12/12/2021123456");
-        employeeDTOMock.setIntegrationDate("12/12/2021");
-        employeeDTOMock.setResignationDate("12/12/2021");
+        employeeDTOMock.setClient(clientMock);
+        employeeDTOMock.setName("Atualização Colaborador de Teste");
+        employeeDTOMock.setAdmissionDate("01/01/20222002");
+        employeeDTOMock.setIntegrationDate("02/01/2022");
+        employeeDTOMock.setResignationDate("02/02/2022");
         employeeDTOMock.setMainPhoneNumber("32122112");
 
         this.mockMvc.perform(MockMvcRequestBuilders.put("/api/employee/1")
