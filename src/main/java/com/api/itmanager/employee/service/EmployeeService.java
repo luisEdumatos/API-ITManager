@@ -40,15 +40,11 @@ public class EmployeeService {
     }
 
     public MessageResponseDTO updateByID(Long id, EmployeeDTO employeeDTO) throws EmployeeNotFoundException {
-        Employee employeeToUpdate = verifyExists(id);
-        employeeToUpdate.setClient(employeeDTO.getClient());
-        employeeToUpdate.setName(employeeDTO.getName());
-        employeeToUpdate.setAdmissionDate(employeeDTO.getAdmissionDate());
-        employeeToUpdate.setIntegrationDate(employeeDTO.getIntegrationDate());
-        employeeToUpdate.setResignationDate(employeeDTO.getResignationDate());
-        employeeToUpdate.setMainPhoneNumber(employeeDTO.getMainPhoneNumber());
-        employeeRepository.save(employeeToUpdate);
-        return createMessageResponse(employeeToUpdate.getId(), "Updated employee with ID ");
+        verifyExists(id);
+        employeeDTO.setId(id);
+        Employee employeeToUpdate = employeeMapper.toModel(employeeDTO);
+        Employee updatedEmployee = employeeRepository.save(employeeToUpdate);
+        return createMessageResponse(updatedEmployee.getId(), "Updated employee with ID ");
     }
 
     private MessageResponseDTO createMessageResponse(Long id, String msg) {

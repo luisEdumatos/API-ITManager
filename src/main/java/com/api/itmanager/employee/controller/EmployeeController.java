@@ -60,6 +60,7 @@ public class EmployeeController {
             @ApiResponse(code = 400, message = "Erro de passagem de parâmetro ou na validação dos campos"),
             @ApiResponse(code = 405, message = "Falta de ID no parâmetro"),
             @ApiResponse(code = 404, message = "Colaborador não encontrado para o ID informado"),
+            @ApiResponse(code = 500, message = "ID de entidade relacionada não encontrado"),
     })
     @PutMapping(value = "/{id}", produces = "application/json")
     public MessageResponseDTO updateByID(@PathVariable Long id, @RequestBody @Valid EmployeeDTO employeeDTO) throws EmployeeNotFoundException {
