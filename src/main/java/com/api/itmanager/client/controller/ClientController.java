@@ -67,6 +67,12 @@ public class ClientController {
         return clientService.updateById(id, clientDTO);
     }
 
+    @ApiOperation(value = "Deleta cliente informado pelo ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Cliente deletado com sucesso"),
+            @ApiResponse(code = 405, message = "Falta de ID no parâmetro"),
+            @ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado"),
+    })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteById(@PathVariable Long id) throws ClientNotFoundException {
