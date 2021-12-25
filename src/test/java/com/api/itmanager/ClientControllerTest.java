@@ -2,6 +2,7 @@ package com.api.itmanager;
 
 import com.api.itmanager.client.controller.ClientController;
 import com.api.itmanager.client.dto.request.ClientDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -113,5 +114,13 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(clientDTOMock)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testDeleteByIdClientNotExists() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/client/25")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(clientDTOMock)))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 }
