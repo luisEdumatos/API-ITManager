@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -98,5 +99,16 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(clientDTOMock)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    public void testDeleteByIdClientExists() throws Exception {
+        this.createClientDTOMock("84.813.917/0002-29");
+        clientController.createClient(clientDTOMock);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/client/1")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(clientDTOMock)))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
