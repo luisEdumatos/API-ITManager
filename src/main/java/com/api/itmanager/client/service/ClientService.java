@@ -40,12 +40,11 @@ public class ClientService {
     }
 
     public MessageResponseDTO updateById(Long id, ClientDTO clientDTO) throws ClientNotFoundException {
-        Client clientToUpdate = verifyExists(id);
-        clientToUpdate.setName(clientDTO.getName());
-        clientToUpdate.setCnpj(clientDTO.getCnpj());
-        clientToUpdate.setAddress(clientDTO.getAddress());
-        clientRepository.save(clientToUpdate);
-        return createMessageResponse(clientToUpdate.getId(), "Updated client with ID ");
+        verifyExists(id);
+        clientDTO.setId(id);
+        Client clientToUpdate = clientMapper.toModel(clientDTO);
+        Client updatedClient = clientRepository.save(clientToUpdate);
+        return createMessageResponse(updatedClient.getId(), "Updated client with ID ");
     }
 
     private MessageResponseDTO createMessageResponse(Long id, String msg) {
