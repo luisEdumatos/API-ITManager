@@ -47,6 +47,11 @@ public class ClientService {
         return createMessageResponse(updatedClient.getId(), "Updated client with ID ");
     }
 
+    public void delete(Long id) throws ClientNotFoundException {
+        verifyExists(id);
+        clientRepository.deleteById(id);
+    }
+
     private MessageResponseDTO createMessageResponse(Long id, String msg) {
         return MessageResponseDTO
                 .builder()
@@ -61,4 +66,5 @@ public class ClientService {
         }
         return optionalClient.get();
     }
+
 }

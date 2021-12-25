@@ -106,7 +106,10 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
         this.createClientDTOMock("84.813.917/0002-29");
         clientController.createClient(clientDTOMock);
 
-        this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/client/1")
+        this.createClientDTOMock("12.817.825/0001-59");
+        clientController.createClient(clientDTOMock);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/client/2")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(clientDTOMock)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
