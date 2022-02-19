@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ClientControllerTest extends ApiItmanagerApplicationTests {
-
+/*
     private MockMvc mockMvc;
 
     @Autowired
@@ -121,4 +121,6 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
                 .content(objectMapper.writeValueAsString(clientDTOMock)))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
+
+ */
 }

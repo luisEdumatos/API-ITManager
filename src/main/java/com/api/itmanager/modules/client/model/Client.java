@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class Client {
     private String name;
 
     @Column(nullable = false, unique = true)
+    @Size(min = 14, max = 14)
     private String cnpj;
 
     @Column(nullable = false)

@@ -1,62 +1,86 @@
 package com.api.itmanager.modules.client.service;
 
+import com.api.itmanager.modules.client.dto.ClientRequest;
+import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.client.dto.mapper.ClientMapper;
 import com.api.itmanager.modules.client.dto.request.ClientDTO;
 import com.api.itmanager.modules.client.model.Client;
 import com.api.itmanager.modules.client.repository.ClientRepository;
 import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.MessageResponseDTO;
+import com.api.itmanager.util.response.SuccessResponse;
+import com.api.itmanager.util.response.ValidationException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.springframework.util.ObjectUtils.isEmpty;
+
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ClientService {
 
     private ClientRepository clientRepository;
-    private final ClientMapper clientMapper = ClientMapper.INSTANCE;
+    private static final int CNPJ_SIZE = 14;
 
-    public List<ClientDTO> listAll() {
-        List<Client> allClients = clientRepository.findAll();
-        return allClients.stream()
-                .map(clientMapper::toDTO)
+    public List<ClientResponse> listAll() {
+        return clientRepository
+                .findAll()
+                .stream()
+                .map(ClientResponse::of)
                 .collect(Collectors.toList());
     }
 
-    public ClientDTO findById(Long id) throws ClientNotFoundException {
-        Client client = verifyExists(id);
-        return clientMapper.toDTO(client);
+    public ClientResponse findById(Long id) throws ClientNotFoundException {
+        Client client = clientRepository
+                .findById(id)
+                .orElseThrow(() -> new ClientNotFoundException(id));
+        return ClientResponse.of(client);
     }
 
-    public MessageResponseDTO createClient(ClientDTO clientDTO) {
-        Client clientToSave = clientMapper.toModel(clientDTO);
-        Client savedClient = clientRepository.save(clientToSave);
-        return createMessageResponse(savedClient.getId(), "Created client with ID ");
+    public SuccessResponse createClient(ClientRequest clientRequest) {
+        validateClientDataInformed(clientRequest);
+        Client savedClient = clientRepository.save(Client.of(clientRequest));
+        return new SuccessResponse(HttpStatus.CREATED.value(), "Created client with ID " + savedClient.getId());
+
     }
 
-    public MessageResponseDTO updateById(Long id, ClientDTO clientDTO) throws ClientNotFoundException {
+    public SuccessResponse updateById(Long id, ClientRequest clientRequest) throws ClientNotFoundException {
+        validateClientDataInformed(clientRequest);
         verifyExists(id);
-        clientDTO.setId(id);
-        Client clientToUpdate = clientMapper.toModel(clientDTO);
-        Client updatedClient = clientRepository.save(clientToUpdate);
-        return createMessageResponse(updatedClient.getId(), "Updated client with ID ");
+        var clientToUpdate = Client.of(clientRequest);
+        clientToUpdate.setId(id);
+        clientRepository.save(clientToUpdate);
+        return new SuccessResponse(HttpStatus.OK.value(), "Updated client with ID " + clientToUpdate.getId());
     }
 
-    public void delete(Long id) throws ClientNotFoundException {
+    private void validateClientDataInformed(ClientRequest request) {
+        if (isEmpty(request.getName())) {
+            throw new ValidationException("The client's name was not informed.");
+        }
+
+        if (isEmpty(request.getCnpj())) {
+            throw new ValidationException("The client's cnpj was not informed.");
+        }
+
+        if (request.getCnpj().length() != CNPJ_SIZE) {
+            throw new ValidationException("The client's cnpj can't contain less than 14 digits.");
+        }
+
+        if (isEmpty(request.getAddress())) {
+            throw new ValidationException("The client's address was not informed.");
+        }
+    }
+
+    public SuccessResponse delete(Long id) throws ClientNotFoundException {
         verifyExists(id);
         clientRepository.deleteById(id);
-    }
-
-    private MessageResponseDTO createMessageResponse(Long id, String msg) {
-        return MessageResponseDTO
-                .builder()
-                .message(msg + id)
-                .build();
+        return new SuccessResponse(HttpStatus.OK.value(), "Deleted client with ID " + id);
     }
 
     private Client verifyExists(Long id) throws ClientNotFoundException {

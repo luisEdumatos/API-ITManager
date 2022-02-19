@@ -1,9 +1,12 @@
 package com.api.itmanager.modules.client.controller;
 
+import com.api.itmanager.modules.client.dto.ClientRequest;
+import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.client.dto.request.ClientDTO;
 import com.api.itmanager.modules.client.service.ClientService;
 import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.MessageResponseDTO;
+import com.api.itmanager.util.response.SuccessResponse;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -28,7 +31,7 @@ public class ClientController {
             @ApiResponse(code = 200, message = "Retorna a lista de clientes, caso não existir, retorna lista vazia")
     })
     @GetMapping(produces = "application/json")
-    public List<ClientDTO> listAll() {
+    public List<ClientResponse> listAll() {
         return clientService.listAll();
     }
 
@@ -39,7 +42,7 @@ public class ClientController {
             @ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado"),
     })
     @GetMapping(value = "/{id}", produces = "application/json")
-    public ClientDTO findById(@PathVariable Long id) throws ClientNotFoundException {
+    public ClientResponse findById(@PathVariable Long id) throws ClientNotFoundException {
         return clientService.findById(id);
     }
 
@@ -51,8 +54,8 @@ public class ClientController {
     })
     @PostMapping(consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponseDTO createClient(@RequestBody @Valid ClientDTO clientDTO) {
-        return clientService.createClient(clientDTO);
+    public SuccessResponse createClient(@RequestBody @Valid ClientRequest request) {
+        return clientService.createClient(request);
     }
 
     @ApiOperation(value = "Atualiza dados de um cliente existente")
@@ -63,8 +66,8 @@ public class ClientController {
             @ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado"),
     })
     @PutMapping(value = "/{id}", produces = "application/json")
-    public MessageResponseDTO updateById(@PathVariable Long id, @RequestBody @Valid ClientDTO clientDTO) throws ClientNotFoundException {
-        return clientService.updateById(id, clientDTO);
+    public SuccessResponse updateById(@PathVariable Long id, @RequestBody @Valid ClientRequest request) throws ClientNotFoundException {
+        return clientService.updateById(id, request);
     }
 
     @ApiOperation(value = "Deleta cliente informado pelo ID")
@@ -75,7 +78,7 @@ public class ClientController {
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteById(@PathVariable Long id) throws ClientNotFoundException {
-        clientService.delete(id);
+    public SuccessResponse deleteById(@PathVariable Long id) throws ClientNotFoundException {
+        return clientService.delete(id);
     }
 }
