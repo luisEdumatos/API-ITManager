@@ -1,7 +1,7 @@
-package com.api.itmanager.employee.dto.mapper;
+package com.api.itmanager.modules.employee.dto.mapper;
 
-import com.api.itmanager.employee.dto.request.EmployeeDTO;
-import com.api.itmanager.employee.entity.Employee;
+import com.api.itmanager.modules.employee.dto.request.EmployeeDTO;
+import com.api.itmanager.modules.employee.entity.Employee;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

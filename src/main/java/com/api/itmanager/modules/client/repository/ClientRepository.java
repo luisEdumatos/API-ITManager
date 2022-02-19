@@ -1,6 +1,6 @@
-package com.api.itmanager.client.repository;
+package com.api.itmanager.modules.client.repository;
 
-import com.api.itmanager.client.entity.Client;
+import com.api.itmanager.modules.client.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

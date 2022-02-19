@@ -1,9 +1,6 @@
-package com.api.itmanager.employee.entity;
+package com.api.itmanager.modules.employee.entity;
 
-import com.api.itmanager.client.entity.Client;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
+import com.api.itmanager.modules.client.model.Client;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,11 +1,11 @@
-package com.api.itmanager.client.service;
+package com.api.itmanager.modules.client.service;
 
-import com.api.itmanager.client.dto.mapper.ClientMapper;
-import com.api.itmanager.client.dto.request.ClientDTO;
+import com.api.itmanager.modules.client.dto.mapper.ClientMapper;
+import com.api.itmanager.modules.client.dto.request.ClientDTO;
+import com.api.itmanager.modules.client.model.Client;
+import com.api.itmanager.modules.client.repository.ClientRepository;
 import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.MessageResponseDTO;
-import com.api.itmanager.client.entity.Client;
-import com.api.itmanager.client.repository.ClientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

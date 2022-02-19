@@ -1,11 +1,13 @@
-package com.api.itmanager.client.entity;
+package com.api.itmanager.modules.client.model;
 
-import com.api.itmanager.employee.entity.Employee;
+import com.api.itmanager.modules.client.dto.ClientRequest;
+import com.api.itmanager.modules.employee.entity.Employee;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "CLIENT")
 public class Client {
 
     @Id
@@ -31,10 +34,9 @@ public class Client {
     @Column(nullable = false)
     private String address;
 
-    @OneToMany(
-            mappedBy = "client",
-            cascade = CascadeType.REMOVE
-    )
-    @JsonIgnore
-    private List<Employee> employees = new ArrayList<>();
+    public static Client of (ClientRequest request) {
+        var client = new Client();
+        BeanUtils.copyProperties(request, client);
+        return client;
+    }
 }

@@ -1,4 +1,4 @@
-package com.api.itmanager.client.dto.request;
+package com.api.itmanager.modules.client.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

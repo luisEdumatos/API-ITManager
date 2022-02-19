@@ -1,9 +1,6 @@
-package com.api.itmanager.employee.dto.request;
+package com.api.itmanager.modules.employee.dto.request;
 
-import com.api.itmanager.client.dto.request.ClientDTO;
-import com.api.itmanager.client.entity.Client;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.api.itmanager.modules.client.model.Client;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

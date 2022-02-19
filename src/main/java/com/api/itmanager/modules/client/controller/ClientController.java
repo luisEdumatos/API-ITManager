@@ -1,9 +1,9 @@
-package com.api.itmanager.client.controller;
+package com.api.itmanager.modules.client.controller;
 
-import com.api.itmanager.client.dto.request.ClientDTO;
+import com.api.itmanager.modules.client.dto.request.ClientDTO;
+import com.api.itmanager.modules.client.service.ClientService;
 import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.MessageResponseDTO;
-import com.api.itmanager.client.service.ClientService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

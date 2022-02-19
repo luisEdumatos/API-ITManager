@@ -1,7 +1,7 @@
-package com.api.itmanager.employee.controller;
+package com.api.itmanager.modules.employee.controller;
 
-import com.api.itmanager.employee.dto.request.EmployeeDTO;
-import com.api.itmanager.employee.service.EmployeeService;
+import com.api.itmanager.modules.employee.dto.request.EmployeeDTO;
+import com.api.itmanager.modules.employee.service.EmployeeService;
 import com.api.itmanager.util.exception.EmployeeNotFoundException;
 import com.api.itmanager.util.response.MessageResponseDTO;
 import io.swagger.annotations.ApiOperation;

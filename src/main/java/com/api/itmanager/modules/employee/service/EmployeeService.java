@@ -1,9 +1,9 @@
-package com.api.itmanager.employee.service;
+package com.api.itmanager.modules.employee.service;
 
-import com.api.itmanager.employee.dto.mapper.EmployeeMapper;
-import com.api.itmanager.employee.dto.request.EmployeeDTO;
-import com.api.itmanager.employee.entity.Employee;
-import com.api.itmanager.employee.repository.EmployeeRepository;
+import com.api.itmanager.modules.employee.dto.mapper.EmployeeMapper;
+import com.api.itmanager.modules.employee.dto.request.EmployeeDTO;
+import com.api.itmanager.modules.employee.entity.Employee;
+import com.api.itmanager.modules.employee.repository.EmployeeRepository;
 import com.api.itmanager.util.exception.EmployeeNotFoundException;
 import com.api.itmanager.util.response.MessageResponseDTO;
 import lombok.AllArgsConstructor;
