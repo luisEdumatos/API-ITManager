@@ -1,7 +1,6 @@
 package com.api.itmanager;
 
 import com.api.itmanager.modules.client.controller.ClientController;
-import com.api.itmanager.modules.client.dto.request.ClientDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

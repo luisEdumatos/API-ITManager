@@ -2,12 +2,9 @@ package com.api.itmanager.modules.client.service;
 
 import com.api.itmanager.modules.client.dto.ClientRequest;
 import com.api.itmanager.modules.client.dto.ClientResponse;
-import com.api.itmanager.modules.client.dto.mapper.ClientMapper;
-import com.api.itmanager.modules.client.dto.request.ClientDTO;
 import com.api.itmanager.modules.client.model.Client;
 import com.api.itmanager.modules.client.repository.ClientRepository;
 import com.api.itmanager.util.exception.ClientNotFoundException;
-import com.api.itmanager.util.response.MessageResponseDTO;
 import com.api.itmanager.util.response.SuccessResponse;
 import com.api.itmanager.util.response.ValidationException;
 import lombok.AllArgsConstructor;
@@ -69,7 +66,7 @@ public class ClientService {
         }
 
         if (request.getCnpj().length() != CNPJ_SIZE) {
-            throw new ValidationException("The client's cnpj can't contain less than 14 digits.");
+            throw new ValidationException("The customer's cnpj must have exactly 14 digits.");
         }
 
         if (isEmpty(request.getAddress())) {

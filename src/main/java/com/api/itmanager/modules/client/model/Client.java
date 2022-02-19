@@ -1,8 +1,6 @@
 package com.api.itmanager.modules.client.model;
 
 import com.api.itmanager.modules.client.dto.ClientRequest;
-import com.api.itmanager.modules.employee.entity.Employee;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +9,6 @@ import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
@@ -26,14 +22,14 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "CNPJ", nullable = false, unique = true)
     @Size(min = 14, max = 14)
     private String cnpj;
 
-    @Column(nullable = false)
+    @Column(name = "ADDRESS", nullable = false)
     private String address;
 
     public static Client of (ClientRequest request) {

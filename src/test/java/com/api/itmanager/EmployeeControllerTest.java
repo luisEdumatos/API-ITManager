@@ -1,10 +1,8 @@
 package com.api.itmanager;
 
 import com.api.itmanager.modules.client.controller.ClientController;
-import com.api.itmanager.modules.client.dto.request.ClientDTO;
 import com.api.itmanager.modules.client.model.Client;
 import com.api.itmanager.modules.employee.controller.EmployeeController;
-import com.api.itmanager.modules.employee.dto.request.EmployeeDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
