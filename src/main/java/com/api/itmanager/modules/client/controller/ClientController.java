@@ -48,7 +48,6 @@ public class ClientController {
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Cliente criado com sucesso"),
             @ApiResponse(code = 400, message = "Erro na validação dos campos informados"),
-            @ApiResponse(code = 500, message = "Erro na criação de valores unicos já utilizados"),
     })
     @PostMapping(consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)

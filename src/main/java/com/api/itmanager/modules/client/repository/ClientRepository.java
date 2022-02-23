@@ -12,4 +12,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     List<Client> findByNameIgnoreCaseContaining(String name);
 
     List<Client> findByCnpj(String cnpj);
+
+    boolean existsByNameIgnoreCaseContaining(String name);
+
+    boolean existsByCnpj(String cnpj);
 }

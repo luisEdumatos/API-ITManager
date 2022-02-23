@@ -8,7 +8,7 @@ import com.api.itmanager.modules.employee.repository.EmployeeRepository;
 import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.exception.EmployeeNotFoundException;
 import com.api.itmanager.util.response.SuccessResponse;
-import com.api.itmanager.util.response.ValidationException;
+import com.api.itmanager.util.exception.ValidationException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
