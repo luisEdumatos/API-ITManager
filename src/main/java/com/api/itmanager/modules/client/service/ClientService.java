@@ -37,14 +37,14 @@ public class ClientService {
     }
 
     public SuccessResponse createClient(ClientRequest clientRequest) {
-        ClientValidation.ClientCreateValidation(clientRequest, existsByName(clientRequest.getName()), existsByCnpj(clientRequest.getCnpj()));
+        ClientValidation.clientCreateValidation(clientRequest, existsByName(clientRequest.getName()), existsByCnpj(clientRequest.getCnpj()));
         Client savedClient = clientRepository.save(Client.of(clientRequest));
         return new SuccessResponse(HttpStatus.CREATED.value(), "Created client with ID " + savedClient.getId());
     }
 
     public SuccessResponse updateById(Long id, ClientRequest clientRequest) throws ClientNotFoundException {
         ClientResponse clientResponse = findById(id);
-        ClientValidation.ClientUpdateValidation(clientRequest, clientResponse, existsByName(clientRequest.getName()), existsByCnpj(clientRequest.getCnpj()));
+        ClientValidation.clientUpdateValidation(clientRequest, clientResponse, existsByName(clientRequest.getName()), existsByCnpj(clientRequest.getCnpj()));
         var clientToUpdate = Client.of(clientRequest);
         clientToUpdate.setId(id);
         clientRepository.save(clientToUpdate);

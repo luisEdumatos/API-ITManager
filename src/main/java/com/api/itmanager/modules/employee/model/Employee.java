@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -32,12 +33,15 @@ public class Employee {
     private String name;
 
     @Column(name = "ADMISSION_DATE", nullable = false)
+    @Size(min = 10, max = 10)
     private String admissionDate;
 
     @Column(name = "INTEGRATION_DATE")
+    @Size(min = 10, max = 10)
     private String integrationDate;
 
     @Column(name = "RESIGNATION_DATE")
+    @Size(min = 10, max = 10)
     private String resignationDate;
 
     @Column(name = "PHONE_NUMBER")

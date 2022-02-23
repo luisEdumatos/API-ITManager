@@ -11,8 +11,8 @@ public class ClientValidation {
     private static final String NUMERIC_MATCH = "[+-]?\\d*(\\.\\d+)?";
 
 
-    public static void ClientCreateValidation(ClientRequest request, boolean existsByName, boolean existsByCnpj) {
-        ClientGeneralValidation(request);
+    public static void clientCreateValidation(ClientRequest request, boolean existsByName, boolean existsByCnpj) {
+        clientGeneralValidation(request);
 
         if (existsByName) {
             throw new ValidationException("The client's name already exists and cannot be repeated. ");
@@ -23,8 +23,8 @@ public class ClientValidation {
         }
     }
 
-    public static void ClientUpdateValidation(ClientRequest request, ClientResponse response, boolean existsByName, boolean existsByCnpj) {
-        ClientGeneralValidation(request);
+    public static void clientUpdateValidation(ClientRequest request, ClientResponse response, boolean existsByName, boolean existsByCnpj) {
+        clientGeneralValidation(request);
 
         if (!request.getName().equalsIgnoreCase(response.getName())) {
             if (existsByName) {
@@ -39,7 +39,7 @@ public class ClientValidation {
         }
     }
 
-    private static void ClientGeneralValidation(ClientRequest request) {
+    private static void clientGeneralValidation(ClientRequest request) {
         if (isEmpty(request.getName())) {
             throw new ValidationException("The client's name was not informed.");
         }
@@ -49,7 +49,7 @@ public class ClientValidation {
         }
 
         if (request.getCnpj().length() != CNPJ_SIZE) {
-            throw new ValidationException("The customer's CNPJ must have exactly 14 digits.");
+            throw new ValidationException("The client's CNPJ must have exactly 14 digits.");
         }
 
         if (!request.getCnpj().matches(NUMERIC_MATCH)) {
