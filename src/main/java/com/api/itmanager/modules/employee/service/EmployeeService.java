@@ -7,7 +7,7 @@ import com.api.itmanager.modules.employee.model.Employee;
 import com.api.itmanager.modules.employee.repository.EmployeeRepository;
 import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.exception.EmployeeNotFoundException;
-import com.api.itmanager.util.response.SuccessResponse;
+import com.api.itmanager.util.response.Response;
 import com.api.itmanager.util.validation.EmployeeValidation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,35 +33,45 @@ public class EmployeeService {
     }
 
     public EmployeeResponse findById(Long id) throws EmployeeNotFoundException {
-        Employee employee = employeeRepository
+        return employeeRepository
                 .findById(id)
+                .map(EmployeeResponse::of)
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
-        return EmployeeResponse.of(employee);
     }
 
-    public SuccessResponse createEmployee(EmployeeRequest request) throws ClientNotFoundException {
+    public Response createEmployee(EmployeeRequest request) throws ClientNotFoundException {
         EmployeeValidation.employeeCreateOrUpdateValidation(request);
+
         var client = clientService.findById(request.getClientId());
+
         var employee = employeeRepository.save(Employee.of(request, client));
 
-        return new SuccessResponse(HttpStatus.CREATED.value(), "Created employee with ID " + employee.getId());
+        return new Response(HttpStatus.CREATED.value(), "Created employee with ID " + employee.getId());
     }
 
-    public SuccessResponse updateByID(Long id, EmployeeRequest request) throws EmployeeNotFoundException, ClientNotFoundException {
+    public Response updateByID(Long id, EmployeeRequest request) throws EmployeeNotFoundException, ClientNotFoundException {
         findById(id);
+
         EmployeeValidation.employeeCreateOrUpdateValidation(request);
+
+        employeeRepository.save(createEmployeeToUpdate(id, request));
+
+        return new Response(HttpStatus.OK.value(), "Updated employee with ID " + id);
+    }
+
+    private Employee createEmployeeToUpdate(Long id, EmployeeRequest request) throws ClientNotFoundException {
         var client = clientService.findById(request.getClientId());
+
         var employeeToUpdate = Employee.of(request, client);
         employeeToUpdate.setId(id);
-        employeeRepository.save(employeeToUpdate);
 
-        return new SuccessResponse(HttpStatus.OK.value(), "Updated employee with ID " + employeeToUpdate.getId());
+        return  employeeToUpdate;
     }
 
-    public SuccessResponse delete(Long id) throws EmployeeNotFoundException {
+    public Response delete(Long id) throws EmployeeNotFoundException {
         findById(id);
         employeeRepository.deleteById(id);
-        return new SuccessResponse(HttpStatus.OK.value(), "Deleted employee with ID " + id);
-    }
 
+        return new Response(HttpStatus.OK.value(), "Deleted employee with ID " + id);
+    }
 }

@@ -4,7 +4,7 @@ import com.api.itmanager.modules.client.dto.ClientRequest;
 import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.client.service.ClientService;
 import com.api.itmanager.util.exception.ClientNotFoundException;
-import com.api.itmanager.util.response.SuccessResponse;
+import com.api.itmanager.util.response.Response;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -51,7 +51,7 @@ public class ClientController {
     })
     @PostMapping(consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public SuccessResponse createClient(@RequestBody @Valid ClientRequest request) {
+    public Response createClient(@RequestBody @Valid ClientRequest request) {
         return clientService.createClient(request);
     }
 
@@ -63,7 +63,7 @@ public class ClientController {
             @ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado"),
     })
     @PutMapping(value = "/{id}", produces = "application/json")
-    public SuccessResponse updateById(@PathVariable Long id, @RequestBody @Valid ClientRequest request) throws ClientNotFoundException {
+    public Response updateById(@PathVariable Long id, @RequestBody @Valid ClientRequest request) throws ClientNotFoundException {
         return clientService.updateById(id, request);
     }
 
@@ -75,7 +75,7 @@ public class ClientController {
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public SuccessResponse deleteById(@PathVariable Long id) throws ClientNotFoundException {
+    public Response deleteById(@PathVariable Long id) throws ClientNotFoundException {
         return clientService.delete(id);
     }
 }

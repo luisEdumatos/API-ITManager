@@ -10,7 +10,6 @@ public class ClientValidation {
     private static final int CNPJ_SIZE = 14;
     private static final String NUMERIC_MATCH = "[+-]?\\d*(\\.\\d+)?";
 
-
     public static void clientCreateValidation(ClientRequest request, boolean existsByName, boolean existsByCnpj) {
         clientGeneralValidation(request);
 
@@ -60,4 +59,5 @@ public class ClientValidation {
             throw new ValidationException("The client's address was not informed.");
         }
     }
+
 }
