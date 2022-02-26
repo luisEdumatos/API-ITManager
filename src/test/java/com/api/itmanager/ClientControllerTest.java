@@ -1,19 +1,25 @@
 package com.api.itmanager;
 
 import com.api.itmanager.modules.client.controller.ClientController;
+import com.api.itmanager.modules.client.dto.ClientRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+@TestPropertySource(locations="classpath:test.properties")
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ClientControllerTest extends ApiItmanagerApplicationTests {
-/*
+
     private MockMvc mockMvc;
 
     @Autowired
@@ -22,7 +28,7 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
     @Autowired
     private ClientController clientController;
 
-    private static ClientDTO clientDTOMock;
+    private static ClientRequest request;
 
     @BeforeAll
     public void setUp() {
@@ -30,10 +36,10 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
     }
 
     private void createClientDTOMock(String cnpj) {
-        clientDTOMock = new ClientDTO();
-        clientDTOMock.setName("Cliente Teste S/A");
-        clientDTOMock.setCnpj(cnpj);
-        clientDTOMock.setAddress("Avenida Teste Unitario, 123, Jardim Testes");
+        request = new ClientRequest();
+        request.setName("Cliente Teste Service 1");
+        request.setCnpj(cnpj);
+        request.setAddress("Avenida Cliente Teste Service, n°1234, Bairro Teste Service, Cidade Teste Service");
     }
 
     @Test
@@ -41,24 +47,25 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/client")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+
     @Test
-    public void testCreateClient() throws Exception {
-        this.createClientDTOMock("12.345.678/0001-99");
+    public void testCreateClient1() throws Exception {
+        this.createClientDTOMock("12345678000199");
         this.mockMvc.perform(MockMvcRequestBuilders.post("/api/client")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(clientDTOMock)))
+                .content(objectMapper.writeValueAsString(request)))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
-    public void testCreateClientWithError() throws Exception {
-        this.createClientDTOMock("12.345.678/0001-999");
+    public void testCreateClient2() throws Exception {
+        this.createClientDTOMock("12345678000199");
         this.mockMvc.perform(MockMvcRequestBuilders.post("/api/client")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(clientDTOMock)))
+                .content(objectMapper.writeValueAsString(request)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
-
+/*
     @Test
     public void testFindByIdIfClientExists() throws Exception {
         this.createClientDTOMock("12.123.555/0001-99");

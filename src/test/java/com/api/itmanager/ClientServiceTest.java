@@ -12,9 +12,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
@@ -22,16 +20,8 @@ import java.util.List;
 import java.util.Optional;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@RunWith(SpringRunner.class)
 public class ClientServiceTest extends ApiItmanagerApplicationTests {
-
-//    @TestConfiguration
-//    static class ClientServiceTestConfiguration {
-//
-//        @Bean
-//        public ClientService clientService() {
-//            return new ClientService();
-//        }
-//    }
 
     @Autowired
     ClientService clientService;
@@ -75,7 +65,7 @@ public class ClientServiceTest extends ApiItmanagerApplicationTests {
     @Test
     public void findClientById() throws ClientNotFoundException {
         ClientResponse clientResponse = clientService.findById(1L);
-        Assert.assertNotNull(clientResponse);
+        Assert.assertEquals(clientResponse.getCnpj(), "12345678912345");
     }
 
     @Test
