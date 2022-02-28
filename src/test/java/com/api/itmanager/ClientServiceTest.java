@@ -6,6 +6,8 @@ import com.api.itmanager.modules.client.model.Client;
 import com.api.itmanager.modules.client.repository.ClientRepository;
 import com.api.itmanager.modules.client.service.ClientService;
 import com.api.itmanager.util.exception.ClientNotFoundException;
+import com.api.itmanager.util.exception.ValidationException;
+import com.api.itmanager.util.response.Response;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,6 +17,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
@@ -25,6 +28,11 @@ import java.util.Optional;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @RunWith(SpringRunner.class)
 public class ClientServiceTest extends ApiItmanagerApplicationTests {
+
+    private static final String EXISTS_CLIENT = "Existe outro cliente igual";
+    private static final String EXISTS_CLIENT_CNPJ = "12345678912345";
+    private static final String NOT_EXISTS_CLIENT = "Não existe outro cliente igual";
+    private static final String NOT_EXISTS_CLIENT_CNPJ = "98765432198765";
 
     private Faker clientFaker;
 
@@ -47,6 +55,11 @@ public class ClientServiceTest extends ApiItmanagerApplicationTests {
 
         Mockito.when(clientRepository.findAll()).thenReturn(Arrays.asList(client1, client2, cliet3));
         Mockito.when(clientRepository.findById(client1.getId())).thenReturn(Optional.of(client1));
+        Mockito.when(clientRepository.save(Mockito.any(Client.class))).thenReturn(client1);
+        Mockito.when(clientRepository.existsByNameIgnoreCaseContaining(EXISTS_CLIENT)).thenReturn(true);
+        Mockito.when(clientRepository.existsByNameIgnoreCaseContaining(NOT_EXISTS_CLIENT)).thenReturn(false);
+        Mockito.when(clientRepository.existsByCnpj(EXISTS_CLIENT_CNPJ)).thenReturn(true);
+        Mockito.when(clientRepository.existsByCnpj(NOT_EXISTS_CLIENT_CNPJ)).thenReturn(false);
     }
 
     private Client createClientFaker(Long id) {
@@ -59,19 +72,85 @@ public class ClientServiceTest extends ApiItmanagerApplicationTests {
     }
 
     @Test
-    public void listAllClients() {
+    public void testListAllClients() {
         List<ClientResponse> listClientsResponse = clientService.listAll();
         Assert.assertEquals(3L, listClientsResponse.size());
     }
 
     @Test
-    public void findClientById() throws ClientNotFoundException {
+    public void testFindClientById() throws ClientNotFoundException {
         ClientResponse clientResponse = clientService.findById(1L);
         Assert.assertEquals(clientResponse.getCnpj(), "12345678912345");
     }
 
     @Test
-    public void findClientByIdIfClientNotExists() throws ClientNotFoundException {
+    public void testFindClientByIdIfClientNotExists() throws ClientNotFoundException {
         Assert.assertThrows(ClientNotFoundException.class, () -> clientService.findById(2L));
     }
+
+    @Test
+    public void testCreateClient() {
+        ClientRequest request = ClientRequest.builder()
+                .name(NOT_EXISTS_CLIENT)
+                .address(clientFaker.address().fullAddress())
+                .cnpj(NOT_EXISTS_CLIENT_CNPJ)
+                .build();
+
+        Response response = clientService.createClient(request);
+
+        Assert.assertEquals((Integer) HttpStatus.CREATED.value(), response.getStatus());
+        Assert.assertEquals("Created client with ID 1", response.getMessage());
+    }
+
+    @Test
+    public void testCreateClientWithErrorForDataNotInformed() {
+        ClientRequest request = new ClientRequest();
+
+        Assert.assertThrows(ValidationException.class, () -> clientService.createClient(request));
+    }
+
+    @Test
+    public void testCreateClientWithErrorForNameAlreadyExists() {
+        ClientRequest request = ClientRequest.builder()
+                .name(EXISTS_CLIENT)
+                .address(clientFaker.address().fullAddress())
+                .cnpj(NOT_EXISTS_CLIENT_CNPJ)
+                .build();
+
+        Assert.assertThrows(ValidationException.class, () -> clientService.createClient(request));
+    }
+
+    @Test
+    public void testCreateClientWithErrorForCnpjAlreadyExists() {
+        ClientRequest request = ClientRequest.builder()
+                .name(NOT_EXISTS_CLIENT)
+                .address(clientFaker.address().fullAddress())
+                .cnpj(EXISTS_CLIENT_CNPJ)
+                .build();
+
+        Assert.assertThrows(ValidationException.class, () -> clientService.createClient(request));
+    }
+
+    @Test
+    public void testUpdateClient() throws ClientNotFoundException {
+        ClientRequest request = ClientRequest.builder()
+                .name(NOT_EXISTS_CLIENT)
+                .address(clientFaker.address().fullAddress())
+                .cnpj(NOT_EXISTS_CLIENT_CNPJ)
+                .build();
+
+        Response response = clientService.updateById(1L, request);
+
+        Assert.assertEquals((Integer) HttpStatus.OK.value(), response.getStatus());
+        Assert.assertEquals("Updated client with ID 1", response.getMessage());
+    }
+
+    @Test
+    public void testDeleteClient() throws ClientNotFoundException {
+        Response response = clientService.delete(1L);
+
+        Assert.assertEquals((Integer) HttpStatus.OK.value(), response.getStatus());
+        Assert.assertEquals("Deleted client with ID 1", response.getMessage());
+    }
+
 }
