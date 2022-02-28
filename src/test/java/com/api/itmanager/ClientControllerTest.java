@@ -70,11 +70,12 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
                 .content(objectMapper.writeValueAsString(request)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
-/*
+
     @Test
     public void testFindByIdIfClientExists() throws Exception {
-        this.createClientDTOMock("12.123.555/0001-99");
-        clientController.createClient(clientDTOMock);
+        ClientRequest request = createClientRequestFaker();
+
+        clientController.createClient(request);
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/client/1")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
@@ -85,53 +86,60 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
 
     @Test
     public void testUpdateClient() throws Exception{
-        this.createClientDTOMock("85.159.351/0002-15");
-        clientController.createClient(clientDTOMock);
-        clientDTOMock.setName("Novo Nome Teste");
-        clientDTOMock.setCnpj("15.159.351/0002-15");
-        clientDTOMock.setAddress("Novo avenida dos Testes, 123");
+        ClientRequest request = createClientRequestFaker();
+
+        clientController.createClient(request);
+
+        ClientRequest requestToUpdate = createClientRequestFaker();
 
         this.mockMvc.perform(MockMvcRequestBuilders.put("/api/client/1")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(clientDTOMock)))
+                .content(objectMapper.writeValueAsString(requestToUpdate)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void testUpdateClientWithError() throws Exception{
-        this.createClientDTOMock("85.999.351/0003-15");
-        clientController.createClient(clientDTOMock);
-        clientDTOMock.setName("Novo Nome Teste");
-        clientDTOMock.setCnpj("15.159.351/0002-15123456");
-        clientDTOMock.setAddress("Novo avenida dos Testes, 123");
+        ClientRequest request = createClientRequestFaker();
+
+        clientController.createClient(request);
+
+        ClientRequest request2 = createClientRequestFaker();
+
+        clientController.createClient(request2);
+
+        request.setName(request2.getName());
 
         this.mockMvc.perform(MockMvcRequestBuilders.put("/api/client/1")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(clientDTOMock)))
+                .content(objectMapper.writeValueAsString(request)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
     @Test
     public void testDeleteByIdClientExists() throws Exception {
-        this.createClientDTOMock("84.813.917/0002-29");
-        clientController.createClient(clientDTOMock);
+        ClientRequest request = createClientRequestFaker();
 
-        this.createClientDTOMock("12.817.825/0001-59");
-        clientController.createClient(clientDTOMock);
+        clientController.createClient(createClientRequestFaker());
 
-        this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/client/2")
+        clientController.createClient(createClientRequestFaker());
+
+        clientController.createClient(request);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/client/3")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(clientDTOMock)))
+                .content(objectMapper.writeValueAsString(request)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void testDeleteByIdClientNotExists() throws Exception {
+        ClientRequest request = createClientRequestFaker();
+
         this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/client/25")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(clientDTOMock)))
+                .content(objectMapper.writeValueAsString(request)))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
- */
 }
