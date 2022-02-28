@@ -1,10 +1,12 @@
 package com.api.itmanager;
 
+import com.api.itmanager.modules.client.dto.ClientRequest;
 import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.client.model.Client;
 import com.api.itmanager.modules.client.repository.ClientRepository;
 import com.api.itmanager.modules.client.service.ClientService;
 import com.api.itmanager.util.exception.ClientNotFoundException;
+import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,11 +19,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @RunWith(SpringRunner.class)
 public class ClientServiceTest extends ApiItmanagerApplicationTests {
+
+    private Faker clientFaker;
 
     @Autowired
     ClientService clientService;
@@ -31,29 +36,26 @@ public class ClientServiceTest extends ApiItmanagerApplicationTests {
 
     @Before
     public void setup() {
-        Client client1 = Client.builder()
-                .id(1L)
-                .name("Cliente Teste Service 1")
-                .cnpj("12345678912345")
-                .address("Avenida Cliente Teste Service, n°1234, Bairro Teste Service, Cidade Teste Service")
-                .build();
+        this.clientFaker = new Faker(new Locale("pt-BR"));
 
-        Client client2 = Client.builder()
-                .id(2L)
-                .name("Cliente Teste Service 2")
-                .cnpj("32145678912345")
-                .address("Avenida Cliente Teste Service, n°1234, Bairro Teste Service, Cidade Teste Service")
-                .build();
+        Client client1 = createClientFaker(1L);
+        client1.setCnpj("12345678912345");
 
-        Client cliet3 = Client.builder()
-                .id(3L)
-                .name("Cliente Teste Service 3")
-                .cnpj("21345678912345")
-                .address("Avenida Cliente Teste Service, n°1234, Bairro Teste Service, Cidade Teste Service")
-                .build();
+        Client client2 = createClientFaker(2L);
+
+        Client cliet3 = createClientFaker(3L);
 
         Mockito.when(clientRepository.findAll()).thenReturn(Arrays.asList(client1, client2, cliet3));
         Mockito.when(clientRepository.findById(client1.getId())).thenReturn(Optional.of(client1));
+    }
+
+    private Client createClientFaker(Long id) {
+        return Client.builder()
+                .id(id)
+                .name(clientFaker.company().name())
+                .address(clientFaker.address().fullAddress())
+                .cnpj(clientFaker.numerify("##############"))
+                .build();
     }
 
     @Test
