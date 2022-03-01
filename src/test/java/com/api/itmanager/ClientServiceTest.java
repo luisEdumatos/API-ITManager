@@ -37,10 +37,10 @@ public class ClientServiceTest extends ApiItmanagerApplicationTests {
     private Faker clientFaker;
 
     @Autowired
-    ClientService clientService;
+    private ClientService clientService;
 
     @MockBean
-    ClientRepository clientRepository;
+    private ClientRepository clientRepository;
 
     @Before
     public void setup() {
