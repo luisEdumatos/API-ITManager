@@ -41,14 +41,6 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/client")).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
-    private ClientRequest createClientRequestFaker() {
-        return ClientRequest.builder()
-                .name(clientFaker.company().name())
-                .address(clientFaker.address().fullAddress())
-                .cnpj(clientFaker.numerify("##############"))
-                .build();
-    }
-
     @Test
     public void testCreateClient() throws Exception {
         ClientRequest request = createClientRequestFaker();
@@ -57,6 +49,14 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(request)))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+
+    private ClientRequest createClientRequestFaker() {
+        return ClientRequest.builder()
+                .name(clientFaker.company().name())
+                .address(clientFaker.address().fullAddress())
+                .cnpj(clientFaker.numerify("##############"))
+                .build();
     }
 
     @Test
@@ -117,7 +117,7 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
     }
 
     @Test
-    public void testDeleteByIdClientExists() throws Exception {
+    public void testDeleteByIdClientIfExists() throws Exception {
         ClientRequest request = createClientRequestFaker();
 
         clientController.createClient(createClientRequestFaker());
@@ -126,19 +126,13 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
 
         clientController.createClient(request);
 
-        this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/client/3")
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(request)))
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/client/3"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
-    public void testDeleteByIdClientNotExists() throws Exception {
-        ClientRequest request = createClientRequestFaker();
-
-        this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/client/25")
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(request)))
+    public void testDeleteByIdClientIfNotExists() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/client/25"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
