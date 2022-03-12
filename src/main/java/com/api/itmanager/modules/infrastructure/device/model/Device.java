@@ -11,9 +11,9 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "DEVICE")
 public class Device {
 
