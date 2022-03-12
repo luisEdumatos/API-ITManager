@@ -13,7 +13,10 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="type",
+        discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorValue("1")
 @Table(name = "DEVICE")
 public class Device {
 

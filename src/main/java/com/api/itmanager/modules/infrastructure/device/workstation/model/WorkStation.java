@@ -14,9 +14,9 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "WORKSTATION")
+@DiscriminatorValue("2")
 public class WorkStation extends Device {
-    
+
     @Column(name = "LOCATION", nullable = false)
     @Size(min = 2, max = 20)
     private String location;
