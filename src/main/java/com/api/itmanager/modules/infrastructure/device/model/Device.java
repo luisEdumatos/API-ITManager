@@ -1,10 +1,15 @@
 package com.api.itmanager.modules.infrastructure.device.model;
 
+import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.client.model.Client;
+import com.api.itmanager.modules.employee.dto.EmployeeRequest;
+import com.api.itmanager.modules.employee.model.Employee;
+import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -48,5 +53,21 @@ public class Device {
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+    public static Device of(DeviceRequest request, ClientResponse clientResponse) {
+        var client = new Client();
+        BeanUtils.copyProperties(clientResponse, client);
+
+        var device = new Device();
+        device.setClientID(client);
+        device.setBrand(request.getBrand());
+        device.setCategory(request.getCategory());
+        device.setDescription(request.getDescription());
+        device.setIpAddress(request.getIpAddress());
+        device.setMacAddress(request.getMacAddress());
+        device.setModel(request.getModel());
+
+        return device;
+    }
 
 }

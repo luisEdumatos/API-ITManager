@@ -80,7 +80,7 @@ public class ClientServiceTest extends ApiItmanagerApplicationTests {
     @Test
     public void testFindClientById() throws ClientNotFoundException {
         ClientResponse clientResponse = clientService.findById(1L);
-        Assert.assertEquals(clientResponse.getCnpj(), "12345678912345");
+        Assert.assertEquals("12345678912345", clientResponse.getCnpj());
     }
 
     @Test

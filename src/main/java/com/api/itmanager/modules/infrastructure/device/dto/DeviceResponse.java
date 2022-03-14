@@ -1,0 +1,41 @@
+package com.api.itmanager.modules.infrastructure.device.dto;
+
+import com.api.itmanager.modules.client.dto.ClientResponse;
+import com.api.itmanager.modules.infrastructure.device.model.Device;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class DeviceResponse {
+
+    private Long id;
+    private String category;
+    private String brand;
+    private String model;
+    @JsonProperty("mac_address")
+    private String macAddress;
+    @JsonProperty("ip_address")
+    private String ipAddress;
+    private String description;
+    private ClientResponse client;
+
+    public static DeviceResponse of(Device device) {
+        return DeviceResponse
+                .builder()
+                .id(device.getId())
+                .category(device.getCategory())
+                .brand(device.getBrand())
+                .model(device.getModel())
+                .macAddress(device.getMacAddress())
+                .ipAddress(device.getIpAddress())
+                .description(device.getDescription())
+                .client(ClientResponse.of(device.getClientID()))
+                .build();
+    }
+}

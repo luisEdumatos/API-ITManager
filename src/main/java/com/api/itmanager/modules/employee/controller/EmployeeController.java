@@ -77,7 +77,7 @@ public class EmployeeController {
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Response deleteById(@PathVariable Long id) throws ClientNotFoundException, EmployeeNotFoundException {
+    public Response deleteById(@PathVariable Long id) throws EmployeeNotFoundException {
         return employeeService.delete(id);
     }
 }

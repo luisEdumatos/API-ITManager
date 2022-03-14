@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ClientService {
@@ -25,7 +24,7 @@ public class ClientService {
                 .findAll()
                 .stream()
                 .map(ClientResponse::of)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public ClientResponse findById(Long id) throws ClientNotFoundException {
