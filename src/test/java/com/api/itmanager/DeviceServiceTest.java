@@ -1,0 +1,102 @@
+package com.api.itmanager;
+
+import com.api.itmanager.modules.client.model.Client;
+import com.api.itmanager.modules.client.repository.ClientRepository;
+import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
+import com.api.itmanager.modules.infrastructure.device.model.Device;
+import com.api.itmanager.modules.infrastructure.device.repository.DeviceRepository;
+import com.api.itmanager.modules.infrastructure.device.service.DeviceService;
+import com.api.itmanager.util.exception.ClientNotFoundException;
+import com.api.itmanager.util.response.Response;
+import com.github.javafaker.Faker;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Locale;
+import java.util.Optional;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@RunWith(SpringRunner.class)
+public class DeviceServiceTest extends ApiItmanagerApplicationTests {
+
+    private Faker clientFaker;
+
+    private Faker deviceFaker;
+
+    @Autowired
+    private DeviceService deviceService;
+
+    @MockBean
+    private DeviceRepository deviceRepository;
+
+    @MockBean
+    private ClientRepository clientRepository;
+
+    @Before
+    public void setup() {
+        this.deviceFaker = new Faker(new Locale("pt-BR"));
+        this.clientFaker = new Faker(new Locale("pt-BR"));
+
+        Device device1 = createDeviceFaker(1L);
+
+        Device device2 = createDeviceFaker(2L);
+
+        Device device3 = createDeviceFaker(3L);
+
+        Client client1 = createClientFaker();
+
+        Mockito.when(deviceRepository.save(Mockito.any(Device.class))).thenReturn(device1);
+        Mockito.when(clientRepository.findById(client1.getId())).thenReturn(Optional.of(client1));
+    }
+
+    private Client createClientFaker() {
+        return Client.builder()
+                .id(1L)
+                .name(clientFaker.company().name())
+                .address(clientFaker.address().fullAddress())
+                .cnpj(clientFaker.numerify("##############"))
+                .build();
+    }
+
+    private Device createDeviceFaker(Long id) {
+
+        var device = new Device();
+        device.setId(id);
+        device.setClientID(createClientFaker());
+        device.setBrand(deviceFaker.commerce().material());
+        device.setCategory(deviceFaker.commerce().department());
+        device.setDescription(deviceFaker.lorem().paragraph());
+        device.setIpAddress(deviceFaker.numerify("############"));
+        device.setMacAddress(deviceFaker.numerify("############"));
+        device.setModel(deviceFaker.commerce().productName());
+
+        return device;
+    }
+
+    @Test
+    public void testCreateDevice() throws ClientNotFoundException {
+        DeviceRequest request = DeviceRequest.builder()
+                .brand(deviceFaker.commerce().material())
+                .category(deviceFaker.commerce().department())
+                .description(deviceFaker.lorem().paragraph())
+                .model(deviceFaker.commerce().productName())
+                .ipAddress(deviceFaker.numerify("############"))
+                .macAddress(deviceFaker.numerify("############"))
+                .clientID(1L)
+                .build();
+
+
+        Response response = deviceService.createDevice(request);
+
+        Assert.assertEquals((Integer) HttpStatus.CREATED.value(), response.getStatus());
+        Assert.assertEquals("Created device with ID 1", response.getMessage());
+    }
+}
