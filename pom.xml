@@ -131,6 +131,22 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.7</version>
+				<configuration>
+					<excludes>
+						<exclude>com/api/itmanager/config/*</exclude>
+						<exclude>com/api/itmanager/util/exception/*</exclude>
+						<exclude>com/api/itmanager/util/response/*</exclude>
+						<exclude>com/api/itmanager/util/validation/*</exclude>
+						<exclude>com/api/itmanager/modules/client/dto/*</exclude>
+						<exclude>com/api/itmanager/modules/client/model/*</exclude>
+						<exclude>com/api/itmanager/modules/employee/dto/*</exclude>
+						<exclude>com/api/itmanager/modules/employee/model/*</exclude>
+						<exclude>com/api/itmanager/modules/infrastructure/device/dto/*</exclude>
+						<exclude>com/api/itmanager/modules/infrastructure/device/model/*</exclude>
+						<exclude>com/api/itmanager/modules/infrastructure/device/workstation/dto/*</exclude>
+						<exclude>com/api/itmanager/modules/infrastructure/device/workstation/model/*</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
@@ -146,7 +162,15 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
+                </configuration>
+            </plugin>
+        </plugins>
 	</build>
 
 </project>
