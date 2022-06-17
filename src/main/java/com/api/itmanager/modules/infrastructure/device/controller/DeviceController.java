@@ -4,6 +4,7 @@ import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
 import com.api.itmanager.modules.infrastructure.device.dto.DeviceResponse;
 import com.api.itmanager.modules.infrastructure.device.service.DeviceService;
 import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationRequest;
+import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationResponse;
 import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.Response;
 import io.swagger.annotations.ApiOperation;
@@ -25,7 +26,7 @@ public class DeviceController {
 
     private DeviceService deviceService;
 
-    @ApiOperation(value = "Retorna a lista de equipamentos encontrados por Id de Cliente")
+    @ApiOperation(value = "Retorna a lista de Equipamentos encontrados por Id de Cliente.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Retorna a lista de equipamentos, caso não existir, retorna lista vazia"),
             @ApiResponse(code = 400, message = "Erro de passagem de parâmetro")
@@ -33,6 +34,16 @@ public class DeviceController {
     @GetMapping(value = "/{id}", produces = "application/json")
     public List<DeviceResponse> findAllDevicesByClientId(@PathVariable Long id) {
         return deviceService.findAllDevicesByClientId(id);
+    }
+
+    @ApiOperation(value = "Retorna a lista de Estações de trabalho encontradas por Id de Cliente.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna a lista de Estações de trabalho, caso não existir, retorna lista vazia"),
+            @ApiResponse(code = 400, message = "Erro de passagem de parâmetro")
+    })
+    @GetMapping(value = "/worksation/{id}", produces = "application/json")
+    public List<WorkStationResponse> findAllWorkStationsByClientId(@PathVariable Long id) {
+        return deviceService.findAllWorkStationsByClientId(id);
     }
 
     @ApiOperation(value = "Cria um novo Equipamento")

@@ -8,6 +8,7 @@ import com.api.itmanager.modules.infrastructure.device.model.Device;
 import com.api.itmanager.modules.infrastructure.device.repository.DeviceRepository;
 import com.api.itmanager.modules.infrastructure.device.service.DeviceService;
 import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationRequest;
+import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationResponse;
 import com.api.itmanager.modules.infrastructure.device.workstation.model.WorkStation;
 import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.Response;
@@ -51,21 +52,21 @@ public class DeviceServiceTest extends ApiItmanagerApplicationTests {
         this.clientFaker = new Faker(new Locale("pt-BR"));
 
         Device device1 = createDeviceFaker(1L);
-
         Device device2 = createDeviceFaker(2L);
-
         Device device3 = createDeviceFaker(3L);
 
         WorkStation workStation1 = createWorkSationFaker(1L);
+        WorkStation workStation2 = createWorkSationFaker(1L);
+        WorkStation workStation3 = createWorkSationFaker(1L);
 
         Client client1 = createClientFaker();
 
-        Mockito.when(deviceRepository.findAllByClientID(client1.getId())).thenReturn(Arrays.asList(device1, device2, device3));
+        Mockito.when(deviceRepository.findAllByDtypeAndClientID(1L, client1.getId())).thenReturn(Arrays.asList(device1, device2, device3));
+        Mockito.when(deviceRepository.findAllByDtypeAndClientID(2L, client1.getId())).thenReturn(Arrays.asList(workStation1, workStation2, workStation3));
         Mockito.when(deviceRepository.save(Mockito.any(Device.class))).thenReturn(device1);
         Mockito.when(deviceRepository.save(Mockito.any(WorkStation.class))).thenReturn(workStation1);
         Mockito.when(clientRepository.findById(client1.getId())).thenReturn(Optional.of(client1));
     }
-
 
     private Client createClientFaker() {
         return Client.builder()
@@ -118,6 +119,12 @@ public class DeviceServiceTest extends ApiItmanagerApplicationTests {
     @Test
     public void testeListAllDevicesByClientId() {
         List<DeviceResponse> listDeviceResponse = deviceService.findAllDevicesByClientId(1L);
+        Assert.assertEquals(3L, listDeviceResponse.size());
+    }
+
+    @Test
+    public void testeListAllWorkStationsByClientId() {
+        List<WorkStationResponse> listDeviceResponse = deviceService.findAllWorkStationsByClientId(1L);
         Assert.assertEquals(3L, listDeviceResponse.size());
     }
 

@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="type",
+@DiscriminatorColumn(name="DTYPE",
         discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue("1")
 @Table(name = "DEVICE")
@@ -28,6 +28,9 @@ public class Device {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "DTYPE", insertable = false, updatable = false)
+    private Long dtype;
 
     @ManyToOne
     @JoinColumn(name = "FK_CLIENT", nullable = false)
