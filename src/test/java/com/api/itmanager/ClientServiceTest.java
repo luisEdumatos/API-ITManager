@@ -55,6 +55,7 @@ public class ClientServiceTest extends ApiItmanagerApplicationTests {
 
         Mockito.when(clientRepository.findAll()).thenReturn(Arrays.asList(client1, client2, cliet3));
         Mockito.when(clientRepository.findById(client1.getId())).thenReturn(Optional.of(client1));
+        Mockito.when(clientRepository.findByCnpj(client1.getCnpj())).thenReturn(Optional.of(client1));
         Mockito.when(clientRepository.save(Mockito.any(Client.class))).thenReturn(client1);
         Mockito.when(clientRepository.existsByNameIgnoreCaseContaining(EXISTS_CLIENT)).thenReturn(true);
         Mockito.when(clientRepository.existsByNameIgnoreCaseContaining(NOT_EXISTS_CLIENT)).thenReturn(false);
@@ -80,6 +81,12 @@ public class ClientServiceTest extends ApiItmanagerApplicationTests {
     @Test
     public void testFindClientById() throws ClientNotFoundException {
         ClientResponse clientResponse = clientService.findById(1L);
+        Assert.assertEquals("12345678912345", clientResponse.getCnpj());
+    }
+
+    @Test
+    public void testFindClientByCnpj() throws ClientNotFoundException {
+        ClientResponse clientResponse = clientService.findByCnpj("12345678912345");
         Assert.assertEquals("12345678912345", clientResponse.getCnpj());
     }
 

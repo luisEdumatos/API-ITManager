@@ -8,6 +8,7 @@ import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStati
 import com.api.itmanager.modules.infrastructure.device.workstation.model.WorkStation;
 import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.Response;
+import com.api.itmanager.util.validation.DeviceValidation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,8 @@ public class DeviceService {
     private ClientService clientService;
 
     public Response createDevice(DeviceRequest request) throws ClientNotFoundException {
+        DeviceValidation.deviceCreateValidation(request);
+
         var client = clientService.findById(request.getClientID());
 
         var device = deviceRepository.save(Device.of(request, client));
@@ -29,6 +32,8 @@ public class DeviceService {
     }
 
     public Response createWorkStation(WorkStationRequest request) throws ClientNotFoundException {
+        DeviceValidation.deviceCreateValidation(request);
+
         var client = clientService.findById(request.getClientID());
 
         var device = deviceRepository.save(WorkStation.of(request, client));
