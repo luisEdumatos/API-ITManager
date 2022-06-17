@@ -34,6 +34,13 @@ public class ClientService {
                 .orElseThrow(() -> new ClientNotFoundException(id));
     }
 
+    public ClientResponse findByCnpj(String cnpj) throws ClientNotFoundException {
+        return clientRepository
+                .findByCnpj(cnpj)
+                .map(ClientResponse::of)
+                .orElseThrow(() -> new ClientNotFoundException(cnpj));
+    }
+
     public Response createClient(ClientRequest clientRequest) {
         ClientValidation.clientCreateValidation(clientRequest,
                                                 existsByName(clientRequest.getName()),
@@ -74,4 +81,5 @@ public class ClientService {
     public boolean existsByCnpj(String cnpj) {
         return clientRepository.existsByCnpj(cnpj);
     }
+
 }

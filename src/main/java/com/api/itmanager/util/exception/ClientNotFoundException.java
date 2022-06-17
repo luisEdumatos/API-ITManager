@@ -8,4 +8,8 @@ public class ClientNotFoundException extends Exception {
     public ClientNotFoundException(Long id) {
         super("Client not found with ID " + id);
     }
+
+    public ClientNotFoundException(String cnpj) {
+        super("Client not found with CNPJ " + cnpj);
+    }
 }
