@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.BeanUtils;
 
 @Data
 @AllArgsConstructor
@@ -30,7 +29,23 @@ public class WorkStationResponse extends DeviceResponse {
     public static WorkStationResponse of(Device workStation) {
         WorkStation ws = (WorkStation) workStation;
         WorkStationResponse response = new WorkStationResponse();
-        BeanUtils.copyProperties(response, ws);
+        response.setId(ws.getId());
+        response.setCategory(ws.getCategory());
+        response.setBrand(ws.getBrand());
+        response.setModel(ws.getModel());
+        response.setMacAddress(ws.getMacAddress());
+        response.setIpAddress(ws.getIpAddress());
+        response.setDescription(ws.getDescription());
+        response.setClient(ws.getClientID().getId());
+        response.setLocation(ws.getLocation());
+        response.setLabel(ws.getLabel());
+        response.setManufacturingDate(ws.getManufacturingDate());
+        response.setOperationalSystem(ws.getOperationalSystem());
+        response.setRam(ws.getRam());
+        response.setHdssd(ws.getHdssd());
+        response.setProcessor(ws.getProcessor());
+        response.setGenProcessor(ws.getGenProcessor());
+        response.setCondition(ws.getCondition());
 
         return response;
     }

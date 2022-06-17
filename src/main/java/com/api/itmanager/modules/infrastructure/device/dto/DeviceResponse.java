@@ -25,7 +25,7 @@ public class DeviceResponse {
     @JsonProperty("ip_address")
     private String ipAddress;
     private String description;
-    private ClientResponse client;
+    private Long client;
 
     public static DeviceResponse of(Device device) {
         return DeviceResponse
@@ -37,7 +37,7 @@ public class DeviceResponse {
                 .macAddress(device.getMacAddress())
                 .ipAddress(device.getIpAddress())
                 .description(device.getDescription())
-                .client(ClientResponse.of(device.getClientID()))
+                .client(device.getClientID().getId())
                 .build();
     }
 

@@ -41,7 +41,7 @@ public class DeviceController {
             @ApiResponse(code = 200, message = "Retorna a lista de Estações de trabalho, caso não existir, retorna lista vazia"),
             @ApiResponse(code = 400, message = "Erro de passagem de parâmetro")
     })
-    @GetMapping(value = "/worksation/{id}", produces = "application/json")
+    @GetMapping(value = "/workstation/{id}", produces = "application/json")
     public List<WorkStationResponse> findAllWorkStationsByClientId(@PathVariable Long id) {
         return deviceService.findAllWorkStationsByClientId(id);
     }

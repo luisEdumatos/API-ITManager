@@ -61,8 +61,8 @@ public class DeviceServiceTest extends ApiItmanagerApplicationTests {
 
         Client client1 = createClientFaker();
 
-        Mockito.when(deviceRepository.findAllByDtypeAndClientID(1L, client1.getId())).thenReturn(Arrays.asList(device1, device2, device3));
-        Mockito.when(deviceRepository.findAllByDtypeAndClientID(2L, client1.getId())).thenReturn(Arrays.asList(workStation1, workStation2, workStation3));
+        Mockito.when(deviceRepository.findAllDevicesByTypeAndClientId(client1.getId(), 1L)).thenReturn(Arrays.asList(device1, device2, device3));
+        Mockito.when(deviceRepository.findAllDevicesByTypeAndClientId(client1.getId(), 2L)).thenReturn(Arrays.asList(workStation1, workStation2, workStation3));
         Mockito.when(deviceRepository.save(Mockito.any(Device.class))).thenReturn(device1);
         Mockito.when(deviceRepository.save(Mockito.any(WorkStation.class))).thenReturn(workStation1);
         Mockito.when(clientRepository.findById(client1.getId())).thenReturn(Optional.of(client1));

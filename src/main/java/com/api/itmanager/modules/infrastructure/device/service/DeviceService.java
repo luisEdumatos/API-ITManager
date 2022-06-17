@@ -9,7 +9,6 @@ import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStati
 import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationResponse;
 import com.api.itmanager.modules.infrastructure.device.workstation.model.WorkStation;
 import com.api.itmanager.util.exception.ClientNotFoundException;
-import com.api.itmanager.util.exception.ValidationException;
 import com.api.itmanager.util.response.Response;
 import com.api.itmanager.util.validation.DeviceValidation;
 import lombok.AllArgsConstructor;
@@ -31,7 +30,7 @@ public class DeviceService {
 
     public List<DeviceResponse> findAllDevicesByClientId(Long clientId) {
         return deviceRepository
-                .findAllByDtypeAndClientID(DEVICE_TYPE, clientId)
+                .findAllDevicesByTypeAndClientId(clientId, DEVICE_TYPE)
                 .stream()
                 .map(DeviceResponse::of)
                 .toList();
@@ -39,7 +38,7 @@ public class DeviceService {
 
     public List<WorkStationResponse> findAllWorkStationsByClientId(Long clientId) {
         return deviceRepository
-                .findAllByDtypeAndClientID(WORKSTATION_TYPE, clientId)
+                .findAllDevicesByTypeAndClientId(clientId, WORKSTATION_TYPE)
                 .stream()
                 .map(WorkStationResponse::of)
                 .toList();
@@ -64,6 +63,5 @@ public class DeviceService {
 
         return new Response(HttpStatus.CREATED.value(), "Created workstation with ID " + device.getId());
     }
-
 
 }
