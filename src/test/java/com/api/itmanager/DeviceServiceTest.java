@@ -3,6 +3,7 @@ package com.api.itmanager;
 import com.api.itmanager.modules.client.model.Client;
 import com.api.itmanager.modules.client.repository.ClientRepository;
 import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
+import com.api.itmanager.modules.infrastructure.device.dto.DeviceResponse;
 import com.api.itmanager.modules.infrastructure.device.model.Device;
 import com.api.itmanager.modules.infrastructure.device.repository.DeviceRepository;
 import com.api.itmanager.modules.infrastructure.device.service.DeviceService;
@@ -22,6 +23,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -57,6 +60,7 @@ public class DeviceServiceTest extends ApiItmanagerApplicationTests {
 
         Client client1 = createClientFaker();
 
+        Mockito.when(deviceRepository.findAllByClientID(client1.getId())).thenReturn(Arrays.asList(device1, device2, device3));
         Mockito.when(deviceRepository.save(Mockito.any(Device.class))).thenReturn(device1);
         Mockito.when(deviceRepository.save(Mockito.any(WorkStation.class))).thenReturn(workStation1);
         Mockito.when(clientRepository.findById(client1.getId())).thenReturn(Optional.of(client1));
@@ -109,6 +113,12 @@ public class DeviceServiceTest extends ApiItmanagerApplicationTests {
         device.setCondition(deviceFaker.commerce().material());
 
         return device;
+    }
+
+    @Test
+    public void testeListAllDevicesByClientId() {
+        List<DeviceResponse> listDeviceResponse = deviceService.findAllDevicesByClientId(1L);
+        Assert.assertEquals(3L, listDeviceResponse.size());
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.api.itmanager.modules.infrastructure.device.service;
 
 import com.api.itmanager.modules.client.service.ClientService;
 import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
+import com.api.itmanager.modules.infrastructure.device.dto.DeviceResponse;
 import com.api.itmanager.modules.infrastructure.device.model.Device;
 import com.api.itmanager.modules.infrastructure.device.repository.DeviceRepository;
 import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationRequest;
@@ -14,12 +15,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class DeviceService {
 
     private DeviceRepository deviceRepository;
     private ClientService clientService;
+
+    public List<DeviceResponse> findAllDevicesByClientId(Long clientId) {
+        return deviceRepository
+                .findAllByClientID(clientId)
+                .stream()
+                .map(DeviceResponse::of)
+                .toList();
+    }
 
     public Response createDevice(DeviceRequest request) throws ClientNotFoundException {
         DeviceValidation.deviceCreateValidation(request);
@@ -40,4 +51,6 @@ public class DeviceService {
 
         return new Response(HttpStatus.CREATED.value(), "Created workstation with ID " + device.getId());
     }
+
+
 }
