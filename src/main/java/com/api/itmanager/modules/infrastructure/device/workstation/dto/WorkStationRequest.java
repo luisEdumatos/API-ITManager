@@ -1,27 +1,15 @@
 package com.api.itmanager.modules.infrastructure.device.workstation.dto;
 
+import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
-@Builder
+@EqualsAndHashCode(callSuper=false)
 @AllArgsConstructor
 @NoArgsConstructor
-public class WorkStationRequest {
+public class WorkStationRequest extends DeviceRequest{
 
-    @JsonProperty("client_id")
-    private Long clientID;
-    private String category;
-    private String brand;
-    private String model;
-    @JsonProperty("mac_address")
-    private String macAddress;
-    @JsonProperty("ip_address")
-    private String ipAddress;
-    private String description;
     private String location;
     private String label;
     @JsonProperty("manufacturing_date")

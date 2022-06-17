@@ -6,6 +6,8 @@ import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
 import com.api.itmanager.modules.infrastructure.device.model.Device;
 import com.api.itmanager.modules.infrastructure.device.repository.DeviceRepository;
 import com.api.itmanager.modules.infrastructure.device.service.DeviceService;
+import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationRequest;
+import com.api.itmanager.modules.infrastructure.device.workstation.model.WorkStation;
 import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.Response;
 import com.github.javafaker.Faker;
@@ -51,11 +53,15 @@ public class DeviceServiceTest extends ApiItmanagerApplicationTests {
 
         Device device3 = createDeviceFaker(3L);
 
+        WorkStation workStation1 = createWorkSationFaker(1L);
+
         Client client1 = createClientFaker();
 
         Mockito.when(deviceRepository.save(Mockito.any(Device.class))).thenReturn(device1);
+        Mockito.when(deviceRepository.save(Mockito.any(WorkStation.class))).thenReturn(workStation1);
         Mockito.when(clientRepository.findById(client1.getId())).thenReturn(Optional.of(client1));
     }
+
 
     private Client createClientFaker() {
         return Client.builder()
@@ -81,6 +87,30 @@ public class DeviceServiceTest extends ApiItmanagerApplicationTests {
         return device;
     }
 
+    private WorkStation createWorkSationFaker(Long id) {
+
+        var device = new WorkStation();
+        device.setId(id);
+        device.setClientID(createClientFaker());
+        device.setBrand(deviceFaker.commerce().material());
+        device.setCategory(deviceFaker.commerce().department());
+        device.setDescription(deviceFaker.lorem().paragraph());
+        device.setIpAddress(deviceFaker.numerify("############"));
+        device.setMacAddress(deviceFaker.numerify("############"));
+        device.setModel(deviceFaker.commerce().productName());
+        device.setLocation(deviceFaker.commerce().department());
+        device.setLabel(deviceFaker.code().toString());
+        device.setManufacturingDate(deviceFaker.date().toString());
+        device.setOperationalSystem(deviceFaker.commerce().material());
+        device.setRam(deviceFaker.commerce().material());
+        device.setHdssd(deviceFaker.commerce().material());
+        device.setProcessor(deviceFaker.commerce().material());
+        device.setGenProcessor(deviceFaker.commerce().material());
+        device.setCondition(deviceFaker.commerce().material());
+
+        return device;
+    }
+
     @Test
     public void testCreateDevice() throws ClientNotFoundException {
         DeviceRequest request = DeviceRequest.builder()
@@ -98,5 +128,32 @@ public class DeviceServiceTest extends ApiItmanagerApplicationTests {
 
         Assert.assertEquals((Integer) HttpStatus.CREATED.value(), response.getStatus());
         Assert.assertEquals("Created device with ID 1", response.getMessage());
+    }
+
+    @Test
+    public void testeCreateWorkstation() throws ClientNotFoundException {
+
+        WorkStationRequest request = new WorkStationRequest();
+        request.setClientID(1L);
+        request.setBrand(deviceFaker.commerce().material());
+        request.setCategory(deviceFaker.commerce().department());
+        request.setDescription(deviceFaker.lorem().paragraph());
+        request.setIpAddress(deviceFaker.numerify("############"));
+        request.setMacAddress(deviceFaker.numerify("############"));
+        request.setModel(deviceFaker.commerce().productName());
+        request.setLocation(deviceFaker.commerce().department());
+        request.setLabel(deviceFaker.code().toString());
+        request.setManufacturingDate(deviceFaker.date().toString());
+        request.setOperationalSystem(deviceFaker.commerce().material());
+        request.setRam(deviceFaker.commerce().material());
+        request.setHdssd(deviceFaker.commerce().material());
+        request.setProcessor(deviceFaker.commerce().material());
+        request.setGenProcessor(deviceFaker.commerce().material());
+        request.setCondition(deviceFaker.commerce().material());
+
+        Response response = deviceService.createWorkStation(request);
+
+        Assert.assertEquals((Integer) HttpStatus.CREATED.value(), response.getStatus());
+        Assert.assertEquals("Created workstation with ID 1", response.getMessage());
     }
 }
