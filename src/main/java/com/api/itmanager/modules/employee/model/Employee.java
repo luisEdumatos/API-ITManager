@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "EMPLOYEE")
+@Table(name = "t_employee")
 public class Employee {
 
     @Id
@@ -26,28 +26,28 @@ public class Employee {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "FK_CLIENT", nullable = false)
+    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "ADMISSION_DATE", nullable = false)
+    @Column(name = "admission_date", nullable = false)
     @Size(min = 10, max = 10)
     private String admissionDate;
 
-    @Column(name = "INTEGRATION_DATE")
+    @Column(name = "integration_date")
     @Size(min = 10, max = 10)
     private String integrationDate;
 
-    @Column(name = "RESIGNATION_DATE")
+    @Column(name = "resignation_date")
     @Size(min = 10, max = 10)
     private String resignationDate;
 
-    @Column(name = "PHONE_NUMBER")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "CREATED_AT", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
