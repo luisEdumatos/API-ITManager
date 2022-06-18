@@ -15,21 +15,21 @@ import javax.validation.constraints.Size;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "CLIENT")
+@Table(name = "t_client")
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "NAME", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(name = "CNPJ", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     @Size(min = 14, max = 14)
     private String cnpj;
 
-    @Column(name = "ADDRESS", nullable = false)
+    @Column(nullable = false)
     private String address;
 
     public static Client of (ClientRequest request) {
