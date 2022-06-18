@@ -22,39 +22,39 @@ import javax.validation.constraints.Size;
 @DiscriminatorColumn(name="dtype",
         discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue("1")
-@Table(name = "DEVICE")
+@Table(name = "t_device")
 public class Device {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "dtype", insertable = false, updatable = false)
+    @Column(insertable = false, updatable = false)
     private Long dtype;
 
     @ManyToOne
-    @JoinColumn(name = "FK_CLIENT", nullable = false)
+    @JoinColumn(name = "client_id", nullable = false)
     private Client clientID;
 
-    @Column(name = "CATEGORY", nullable = false)
+    @Column(nullable = false)
     @Size(min = 2, max = 20)
     private String category;
 
-    @Column(name = "BRAND", nullable = false)
+    @Column(nullable = false)
     @Size(min = 3, max = 20)
     private String brand;
 
-    @Column(name = "MODEL", nullable = false)
+    @Column(nullable = false)
     @Size(min = 3, max = 20)
     private String model;
 
-    @Column(name = "MAC_ADDRESS", length = 12)
+    @Column(name = "mac_address", length = 12)
     private String macAddress;
 
-    @Column(name = "IP_ADDRESS", length = 12)
+    @Column(name = "ip_address", length = 12)
     private String ipAddress;
 
-    @Column(name = "DESCRIPTION")
+    @Column
     private String description;
 
     public static Device of(DeviceRequest request, ClientResponse clientResponse) {

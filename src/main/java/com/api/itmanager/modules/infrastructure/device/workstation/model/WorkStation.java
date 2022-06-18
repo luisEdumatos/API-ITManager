@@ -21,39 +21,39 @@ import javax.validation.constraints.Size;
 @DiscriminatorValue("2")
 public class WorkStation extends Device {
 
-    @Column(name = "LOCATION")
+    @Column
     @Size(min = 2, max = 20)
     private String location;
 
-    @Column(name = "LABEL")
+    @Column
     @Size(min = 2, max = 20)
     private String label;
 
-    @Column(name = "MANUFACTURING_DATE")
+    @Column(name = "manufacturing_date")
     @Size(min = 2, max = 20)
     private String manufacturingDate;
 
-    @Column(name = "OPERATIONAL_SYSTEM")
+    @Column(name = "operational_system")
     @Size(min = 2, max = 20)
     private String operationalSystem;
 
-    @Column(name = "RAM")
+    @Column
     @Size(min = 2, max = 20)
     private String ram;
 
-    @Column(name = "HDSSD")
+    @Column
     @Size(min = 2, max = 20)
     private String hdssd;
 
-    @Column(name = "PROCESSOR")
+    @Column
     @Size(min = 2, max = 20)
     private String processor;
 
-    @Column(name = "GEN_PROCESSOR")
+    @Column(name = "gen_processor")
     @Size(min = 2, max = 20)
     private String genProcessor;
 
-    @Column(name = "CONDITION")
+    @Column
     @Size(min = 2, max = 20)
     private String condition;
 

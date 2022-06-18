@@ -25,6 +25,7 @@ public class DeviceResponse {
     @JsonProperty("ip_address")
     private String ipAddress;
     private String description;
+    @JsonProperty("client_id")
     private Long client;
 
     public static DeviceResponse of(Device device) {
