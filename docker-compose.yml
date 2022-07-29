@@ -2,7 +2,7 @@ version: "3"
 services:
 
   itmanager:
-    image: itmanager-api:latest
+    image: api-itmanager:latest
     ports:
       - 8080:8080
     depends_on:
