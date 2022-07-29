@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,19 +30,21 @@ public class DeviceService {
     private ClientService clientService;
 
     public List<DeviceResponse> findAllDevicesByClientId(Long clientId) {
-        return deviceRepository
-                .findAllDevicesByTypeAndClientId(clientId, DEVICE_TYPE)
-                .stream()
-                .map(DeviceResponse::of)
-                .toList();
+        return new ArrayList<>();
+        //        return deviceRepository
+//                .findAllDevicesByTypeAndClientId(clientId, DEVICE_TYPE)
+//                .stream()
+//                .map(DeviceResponse::of)
+//                .toList();;
     }
 
     public List<WorkStationResponse> findAllWorkStationsByClientId(Long clientId) {
-        return deviceRepository
-                .findAllDevicesByTypeAndClientId(clientId, WORKSTATION_TYPE)
-                .stream()
-                .map(WorkStationResponse::of)
-                .toList();
+        return new ArrayList<>();
+//        return deviceRepository
+//                .findAllDevicesByTypeAndClientId(clientId, WORKSTATION_TYPE)
+//                .stream()
+//                .map(WorkStationResponse::of)
+//                .toList();
     }
 
     public Response createDevice(DeviceRequest request) throws ClientNotFoundException {

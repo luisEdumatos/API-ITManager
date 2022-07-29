@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,11 +21,12 @@ public class ClientService {
     private ClientRepository clientRepository;
 
     public List<ClientResponse> listAll() {
-        return clientRepository
-                .findAll()
-                .stream()
-                .map(ClientResponse::of)
-                .toList();
+        return new ArrayList<>();
+//        return clientRepository
+//                .findAll()
+//                .stream()
+//                .map(ClientResponse::of)
+//                .toList();
     }
 
     public ClientResponse findById(Long id) throws ClientNotFoundException {

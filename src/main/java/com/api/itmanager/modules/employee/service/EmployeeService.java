@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,11 +25,12 @@ public class EmployeeService {
     private ClientService clientService;
 
     public List<EmployeeResponse> listAll() {
-        return employeeRepository
-                .findAll()
-                .stream()
-                .map(EmployeeResponse::of)
-                .toList();
+        return new ArrayList<>();
+//        return employeeRepository
+//                .findAll()
+//                .stream()
+//                .map(EmployeeResponse::of)
+//                .toList();
     }
 
     public EmployeeResponse findById(Long id) throws EmployeeNotFoundException {
