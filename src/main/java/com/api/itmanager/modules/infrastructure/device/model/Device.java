@@ -13,6 +13,8 @@ import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -35,6 +37,10 @@ public class Device {
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
     private Client clientID;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+               mappedBy = "t_device")
+    private Set<Employee> employees = new HashSet<>();
 
     @Column(nullable = false)
     @Size(min = 2, max = 20)
