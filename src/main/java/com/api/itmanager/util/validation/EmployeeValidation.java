@@ -20,17 +20,5 @@ public class EmployeeValidation {
         if (isEmpty(request.getClientId())) {
             throw new ValidationException("The client ID was not informed.");
         }
-
-        if (request.getAdmissionDate().length() != DATE_SIZE) {
-            throw new ValidationException("The employee's admission date must have exactly 10 digits, including the separator bars.");
-        }
-
-        if (request.getIntegrationDate() != null && request.getIntegrationDate().length() != DATE_SIZE) {
-            throw new ValidationException("The employee's integration date must have exactly 10 digits, including the separator bars.");
-        }
-
-        if (request.getResignationDate() != null && request.getResignationDate().length() != DATE_SIZE) {
-            throw new ValidationException("The employee's resignation date must have exactly 10 digits, including the separator bars.");
-        }
     }
 }

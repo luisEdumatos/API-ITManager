@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -20,15 +21,14 @@ public class EmployeeResponse {
     private Long id;
     private String name;
     @JsonProperty("admission_date")
-    private String admissionDate;
+    private LocalDate admissionDate;
     @JsonProperty("integration_date")
-    private String integrationDate;
+    private LocalDate integrationDate;
     @JsonProperty("resignation_date")
-    private String resignationDate;
+    private LocalDate resignationDate;
     @JsonProperty("phone_number")
     private String phoneNumber;
     @JsonProperty("created_at")
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime createdAt;
     private ClientResponse client;
 
