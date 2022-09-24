@@ -28,10 +28,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@RunWith(SpringRunner.class)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@RunWith(SpringRunner.class)
 public class EmployeeServiceTest extends ApiItmanagerApplicationTests {
-
+/*
     private Faker clientFaker;
 
     private Faker employeeFaker;
@@ -153,4 +153,6 @@ public class EmployeeServiceTest extends ApiItmanagerApplicationTests {
         Assert.assertEquals((Integer) HttpStatus.OK.value(), response.getStatus());
         Assert.assertEquals("Deleted employee with ID 1", response.getMessage());
     }
+
+ */
 }

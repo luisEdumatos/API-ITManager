@@ -25,10 +25,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@RunWith(SpringRunner.class)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@RunWith(SpringRunner.class)
 public class ClientServiceTest extends ApiItmanagerApplicationTests {
-
+/*
     private static final String EXISTS_CLIENT = "Existe outro cliente igual";
     private static final String EXISTS_CLIENT_CNPJ = "12345678912345";
     private static final String NOT_EXISTS_CLIENT = "Não existe outro cliente igual";
@@ -159,5 +159,5 @@ public class ClientServiceTest extends ApiItmanagerApplicationTests {
         Assert.assertEquals((Integer) HttpStatus.OK.value(), response.getStatus());
         Assert.assertEquals("Deleted client with ID 1", response.getMessage());
     }
-
+*/
 }

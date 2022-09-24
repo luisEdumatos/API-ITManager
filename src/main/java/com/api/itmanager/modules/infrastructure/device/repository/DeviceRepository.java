@@ -10,4 +10,6 @@ import java.util.List;
 public interface DeviceRepository extends JpaRepository<Device, Long> {
     @Query(value = "SELECT * FROM t_device WHERE client_id=?1 AND dtype=?2", nativeQuery = true)
     List<Device> findAllDevicesByTypeAndClientId(Long id, Long dtype);
+
+    List<Device> findDevicesByEmployeesId(Long employeeId);
 }

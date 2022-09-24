@@ -39,7 +39,7 @@ public class Device {
     private Client clientID;
 
     @ManyToMany(fetch = FetchType.LAZY,
-               mappedBy = "t_device")
+               mappedBy = "devices")
     private Set<Employee> employees = new HashSet<>();
 
     @Column(nullable = false)

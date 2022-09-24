@@ -29,10 +29,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@RunWith(SpringRunner.class)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@RunWith(SpringRunner.class)
 public class DeviceServiceTest extends ApiItmanagerApplicationTests {
-
+/*
     private Faker clientFaker;
 
     private Faker deviceFaker;
@@ -173,4 +173,6 @@ public class DeviceServiceTest extends ApiItmanagerApplicationTests {
         Assert.assertEquals((Integer) HttpStatus.CREATED.value(), response.getStatus());
         Assert.assertEquals("Created workstation with ID 1", response.getMessage());
     }
+
+ */
 }

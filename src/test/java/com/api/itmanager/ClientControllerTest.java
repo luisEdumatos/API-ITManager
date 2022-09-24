@@ -16,10 +16,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Locale;
 
-@TestPropertySource(locations="classpath:test.properties")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@TestPropertySource(locations="classpath:test.properties")
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ClientControllerTest extends ApiItmanagerApplicationTests {
-
+/*
     private MockMvc mockMvc;
 
     private Faker clientFaker;
@@ -135,5 +135,5 @@ public class ClientControllerTest extends ApiItmanagerApplicationTests {
         this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/client/25"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
-
+*/
 }
