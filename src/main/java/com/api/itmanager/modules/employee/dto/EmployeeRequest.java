@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -16,11 +18,11 @@ public class EmployeeRequest {
     private Long clientId;
     private String name;
     @JsonProperty("admission_date")
-    private String admissionDate;
+    private LocalDate admissionDate;
     @JsonProperty("integration_date")
-    private String integrationDate;
+    private LocalDate integrationDate;
     @JsonProperty("resignation_date")
-    private String resignationDate;
+    private LocalDate resignationDate;
     @JsonProperty("phone_number")
     private String phoneNumber;
 }
