@@ -1,9 +1,6 @@
 package com.api.itmanager.modules.infrastructure.device.dto;
 
-import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.infrastructure.device.model.Device;
-import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationResponse;
-import com.api.itmanager.modules.infrastructure.device.workstation.model.WorkStation;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

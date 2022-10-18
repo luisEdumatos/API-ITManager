@@ -2,13 +2,13 @@ package com.api.itmanager.modules.infrastructure.device.model;
 
 import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.client.model.Client;
-import com.api.itmanager.modules.employee.dto.EmployeeRequest;
 import com.api.itmanager.modules.employee.model.Employee;
 import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
@@ -35,11 +35,13 @@ public class Device {
     private Long dtype;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "client_id", nullable = false)
     private Client clientID;
 
     @ManyToMany(fetch = FetchType.LAZY,
                mappedBy = "devices")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Employee> employees = new HashSet<>();
 
     @Column(nullable = false)

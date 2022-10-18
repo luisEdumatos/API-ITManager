@@ -40,8 +40,19 @@ public class ClientController {
             @ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado"),
     })
     @GetMapping(value = "/{id}", produces = "application/json")
-    public ClientResponse findById(@PathVariable Long id) throws ClientNotFoundException {
+    public ClientResponse findById(@PathVariable Long id) {
         return clientService.findById(id);
+    }
+
+    @ApiOperation(value = "Retorna o cliente informado por CNPJ")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna o cliente referente ao CNPJ informado"),
+            @ApiResponse(code = 400, message = "Erro de passagem de parâmetro"),
+            @ApiResponse(code = 404, message = "Cliente não encontrado para o CNPJ informado"),
+    })
+    @GetMapping(value = "/cnpj/{cnpj}", produces = "application/json")
+    public ClientResponse findByCnpj(@PathVariable String cnpj) {
+        return clientService.findByCnpj(cnpj);
     }
 
     @ApiOperation(value = "Cria um novo cliente")
@@ -63,7 +74,7 @@ public class ClientController {
             @ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado"),
     })
     @PutMapping(value = "/{id}", produces = "application/json")
-    public Response updateById(@PathVariable Long id, @RequestBody @Valid ClientRequest request) throws ClientNotFoundException {
+    public Response updateById(@PathVariable Long id, @RequestBody @Valid ClientRequest request) {
         return clientService.updateById(id, request);
     }
 
@@ -75,7 +86,7 @@ public class ClientController {
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Response deleteById(@PathVariable Long id) throws ClientNotFoundException {
+    public Response deleteById(@PathVariable Long id) {
         return clientService.delete(id);
     }
 }
