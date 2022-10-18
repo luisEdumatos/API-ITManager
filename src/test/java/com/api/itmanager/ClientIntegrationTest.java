@@ -1,24 +1,8 @@
 package com.api.itmanager;
 
-import com.api.itmanager.modules.client.controller.ClientController;
-import com.api.itmanager.modules.client.dto.ClientRequest;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.javafaker.Faker;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.util.Locale;
-
 //@TestPropertySource(locations="classpath:test.properties")
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ClientControllerTest extends ApiItmanagerApplicationTests {
+public class ClientIntegrationTest extends ApiItmanagerApplicationTests {
 /*
     private MockMvc mockMvc;
 

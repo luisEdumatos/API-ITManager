@@ -8,12 +8,10 @@ import com.api.itmanager.modules.infrastructure.device.repository.DeviceReposito
 import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationRequest;
 import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationResponse;
 import com.api.itmanager.modules.infrastructure.device.workstation.model.WorkStation;
-import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.Response;
 import com.api.itmanager.util.validation.DeviceValidation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -47,24 +45,31 @@ public class DeviceService {
 //                .toList();
     }
 
-    public Response createDevice(DeviceRequest request) throws ClientNotFoundException {
+    public Response createDevice(DeviceRequest request) {
         DeviceValidation.deviceCreateValidation(request);
 
         var client = clientService.findById(request.getClientID());
 
         var device = deviceRepository.save(Device.of(request, client));
 
-        return new Response(HttpStatus.CREATED.value(), "Created device with ID " + device.getId());
+        return new Response("Created device with ID " + device.getId());
     }
 
-    public Response createWorkStation(WorkStationRequest request) throws ClientNotFoundException {
+    public Response createWorkStation(WorkStationRequest request) {
         DeviceValidation.deviceCreateValidation(request);
 
         var client = clientService.findById(request.getClientID());
 
         var device = deviceRepository.save(WorkStation.of(request, client));
 
-        return new Response(HttpStatus.CREATED.value(), "Created workstation with ID " + device.getId());
+        return new Response("Created workstation with ID " + device.getId());
+    }
+/*
+    public Response delete(Long id) {
+        deviceRepository.deleteById(id);
+
+        return new Response("Deleted device with ID " + id);
     }
 
+ */
 }

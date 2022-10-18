@@ -2,11 +2,9 @@ package com.api.itmanager.modules.infrastructure.device.workstation.model;
 
 import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.client.model.Client;
-import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
 import com.api.itmanager.modules.infrastructure.device.model.Device;
 import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationRequest;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;

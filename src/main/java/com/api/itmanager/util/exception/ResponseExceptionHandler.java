@@ -17,18 +17,23 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ValidationException.class)
     private final ResponseEntity<Response> handleValidationException(Exception ex, WebRequest request) {
-        Response response = Response.create(ex.getMessage(),
-                             HttpStatus.BAD_REQUEST);
+        Response response = Response.create(ex.getMessage());
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ClientNotFoundException.class)
+    private final ResponseEntity<Response> handleClientNotFoundException(Exception ex, WebRequest request) {
+        Response response = Response.create(ex.getMessage());
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
-        Response response = Response.create(ex.getMessage(),
-                        HttpStatus.BAD_REQUEST);
+        Response response = Response.create(ex.getMessage());
 
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
