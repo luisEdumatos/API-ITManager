@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -29,26 +30,24 @@ public class DeviceService {
     private ClientService clientService;
 
     public List<DeviceResponse> findAllDevicesByClientId(Long clientId) {
-        return new ArrayList<>();
-        //        return deviceRepository
-//                .findAllDevicesByTypeAndClientId(clientId, DEVICE_TYPE)
-//                .stream()
-//                .map(DeviceResponse::of)
-//                .toList();;
+         return deviceRepository
+                .findAllDevicesByTypeAndClientId(clientId, DEVICE_TYPE)
+                .stream()
+                .map(DeviceResponse::of)
+                .collect(Collectors.toList());
+    }
+
+    public List<WorkStationResponse> findAllWorkStationsByClientId(Long clientId) {
+        return deviceRepository
+                .findAllDevicesByTypeAndClientId(clientId, WORKSTATION_TYPE)
+                .stream()
+                .map(WorkStationResponse::of)
+                .collect(Collectors.toList());
     }
 
     public Device findDeviceById(Long deviceId) {
         return deviceRepository.findById(deviceId)
-                               .orElseThrow(() -> new DeviceNotFoundException(deviceId));
-    }
-
-    public List<WorkStationResponse> findAllWorkStationsByClientId(Long clientId) {
-        return new ArrayList<>();
-//        return deviceRepository
-//                .findAllDevicesByTypeAndClientId(clientId, WORKSTATION_TYPE)
-//                .stream()
-//                .map(WorkStationResponse::of)
-//                .toList();
+                .orElseThrow(() -> new DeviceNotFoundException(deviceId));
     }
 
     public Response createDevice(DeviceRequest request) {

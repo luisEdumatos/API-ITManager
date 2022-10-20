@@ -52,7 +52,7 @@ public class DeviceController {
     })
     @PostMapping(consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Response createDevice(@RequestBody @Valid DeviceRequest request) {
+    public Response createDevice(@RequestBody DeviceRequest request) {
         return deviceService.createDevice(request);
     }
 
@@ -66,6 +66,10 @@ public class DeviceController {
     public Response createWorkStation(@RequestBody @Valid WorkStationRequest request) {
         return deviceService.createWorkStation(request);
     }
+
+    //TODO Implementar UpdateDevice
+    //TODO Implementar UpdateWorkstation
+    //TODO Implementar DeleteById
 
     /*
     @ApiOperation(value = "Deleta equipamento informado pelo ID")

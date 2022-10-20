@@ -10,7 +10,6 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Getter
@@ -42,15 +41,12 @@ public class Device {
     private Set<EmployeeDevice> employees;
 
     @Column(nullable = false)
-    @Size(min = 2, max = 20)
     private String category;
 
     @Column(nullable = false)
-    @Size(min = 3, max = 20)
     private String brand;
 
     @Column(nullable = false)
-    @Size(min = 3, max = 20)
     private String model;
 
     @Column(name = "mac_address", length = 12)

@@ -23,14 +23,7 @@ public class EmployeeController {
 
     private EmployeeService employeeService;
 
-    @ApiOperation(value = "Retorna a lista de colaboradores existentes")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Retorna a lista de colaboradores, caso não existir, retorna lista vazia")
-    })
-    @GetMapping(produces = "application/json")
-    public List<EmployeeResponse> listAll() {
-        return employeeService.listAll();
-    }
+    //TODO Implementar metodo findAllByClientId
 
     @ApiOperation(value = "Retorna o colaborador informado por ID")
     @ApiResponses(value = {

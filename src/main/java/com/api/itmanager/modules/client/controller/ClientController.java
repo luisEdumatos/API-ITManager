@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -61,7 +60,7 @@ public class ClientController {
     })
     @PostMapping(consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Response createClient(@RequestBody @Valid ClientRequest request) {
+    public Response createClient(@RequestBody ClientRequest request) {
         return clientService.createClient(request);
     }
 
@@ -73,7 +72,7 @@ public class ClientController {
             @ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado"),
     })
     @PutMapping(value = "/{id}", produces = "application/json")
-    public Response updateById(@PathVariable Long id, @RequestBody @Valid ClientRequest request) {
+    public Response updateById(@PathVariable Long id, @RequestBody ClientRequest request) {
         return clientService.updateById(id, request);
     }
 

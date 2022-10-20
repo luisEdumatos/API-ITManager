@@ -46,13 +46,13 @@ public class ClientService {
                                                 existsByName(clientRequest.getName()),
                                                 existsByCnpj(clientRequest.getCnpj()));
 
-        Client savedClient = clientRepository.save(Client.of(clientRequest));
+        var savedClient = clientRepository.save(Client.of(clientRequest));
 
         return new Response("Created client with ID " + savedClient.getId());
     }
 
     public Response updateById(Long id, ClientRequest clientRequest) {
-        ClientResponse clientResponse = findById(id);
+        var clientResponse = findById(id);
 
         ClientValidation.clientUpdateValidation(clientRequest, clientResponse, existsByName(clientRequest.getName()), existsByCnpj(clientRequest.getCnpj()));
 

@@ -2,6 +2,7 @@ package com.api.itmanager.modules.employee.dto;
 
 import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.employee.model.Employee;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -25,7 +26,8 @@ public class EmployeeResponse {
     private String phoneNumber;
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
-    private ClientResponse client;
+    @JsonIgnore
+    private ClientResponse client; //TODO Avaliar necessidade de manter essa informação
 
     public static EmployeeResponse of(Employee employee) {
         return EmployeeResponse

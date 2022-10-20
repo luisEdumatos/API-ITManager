@@ -27,4 +27,8 @@ public class EmployeeDeviceController {
     public Response createEmployeeDevice(@PathVariable Long idEmployee, @PathVariable Long idDevice) {
         return employeeDeviceService.createEmployeeDevice(idEmployee, idDevice);
     }
+
+    //TODO Implementar findAllDeviceByEmployeeId
+    //TODO Implementar findAllEmployeeByDeviceId
+    //TODO Implementar DeleteEmployeeDevice
 }

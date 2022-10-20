@@ -10,8 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
-    List<Client> findByNameIgnoreCaseContaining(String name);
-
     Optional<Client> findByCnpj(String cnpj);
 
     boolean existsByNameIgnoreCaseContaining(String name);
