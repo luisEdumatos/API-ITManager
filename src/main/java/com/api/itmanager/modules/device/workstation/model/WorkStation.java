@@ -10,7 +10,6 @@ import org.springframework.beans.BeanUtils;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -60,7 +59,7 @@ public class WorkStation extends Device {
         BeanUtils.copyProperties(clientResponse, client);
 
         var device = new WorkStation();
-        device.setClientID(client);
+        device.setClient(client);
         device.setBrand(request.getBrand());
         device.setCategory(request.getCategory());
         device.setDescription(request.getDescription());

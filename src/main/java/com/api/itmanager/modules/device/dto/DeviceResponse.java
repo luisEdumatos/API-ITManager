@@ -33,7 +33,7 @@ public class DeviceResponse {
                 .macAddress(device.getMacAddress())
                 .ipAddress(device.getIpAddress())
                 .description(device.getDescription())
-                .client(device.getClientID().getId())
+                .client(device.getClient().getId())
                 .build();
     }
 

@@ -1,7 +1,6 @@
 package com.api.itmanager.modules.client.dto;
 
 import com.api.itmanager.modules.client.model.Client;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;

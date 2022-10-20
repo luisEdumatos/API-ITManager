@@ -38,7 +38,7 @@ public class WorkStationResponse extends DeviceResponse {
         response.setMacAddress(ws.getMacAddress());
         response.setIpAddress(ws.getIpAddress());
         response.setDescription(ws.getDescription());
-        response.setClient(ws.getClientID().getId());
+        response.setClient(ws.getClient().getId());
         response.setLocation(ws.getLocation());
         response.setLabel(ws.getLabel());
         response.setManufacturingDate(ws.getManufacturingDate());
@@ -51,5 +51,4 @@ public class WorkStationResponse extends DeviceResponse {
 
         return response;
     }
-
 }

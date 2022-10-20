@@ -27,19 +27,10 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
-    private Client client;
-
-    /*
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "t_employee_device",
-            joinColumns = { @JoinColumn(name = "employee_id") },
-            inverseJoinColumns = { @JoinColumn(name = "device_id") })
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Set<Device> devices = new HashSet<>();
-*/
+    private Client client;
 
     @OneToMany(mappedBy = "employee")
     @OnDelete(action = OnDeleteAction.CASCADE)

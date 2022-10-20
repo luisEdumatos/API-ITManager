@@ -22,5 +22,4 @@ public class WorkStationRequest extends DeviceRequest {
     @JsonProperty("genProcessor")
     private String genProcessor;
     private String condition;
-
 }

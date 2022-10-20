@@ -8,7 +8,6 @@ import com.api.itmanager.modules.device.workstation.dto.WorkStationResponse;
 import com.api.itmanager.modules.device.workstation.model.WorkStation;
 import com.api.itmanager.modules.device.model.Device;
 import com.api.itmanager.modules.device.repository.DeviceRepository;
-import com.api.itmanager.modules.employee.service.EmployeeService;
 import com.api.itmanager.util.exception.DeviceNotFoundException;
 import com.api.itmanager.util.response.Response;
 import com.api.itmanager.util.validation.DeviceValidation;

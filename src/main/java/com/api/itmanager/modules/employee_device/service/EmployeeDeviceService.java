@@ -7,6 +7,7 @@ import com.api.itmanager.modules.employee.service.EmployeeService;
 import com.api.itmanager.modules.employee_device.model.EmployeeDevice;
 import com.api.itmanager.modules.employee_device.model.EmployeeDeviceId;
 import com.api.itmanager.modules.employee_device.repository.EmployeeDeviceRepository;
+import com.api.itmanager.util.exception.ValidationException;
 import com.api.itmanager.util.response.Response;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class EmployeeDeviceService {
         Employee employee = employeeService.findEmployeeById(employeeId);
         Device device = deviceService.findDeviceById(deviceId);
 
+        verifyIfClientIsTheSame(employee.getClient().getId(), device.getClient().getId());
+
         EmployeeDeviceId employeeDeviceId = new EmployeeDeviceId(employeeId, deviceId);
 
         EmployeeDevice employeeDevice = new EmployeeDevice();
@@ -35,4 +38,10 @@ public class EmployeeDeviceService {
 
         return new Response("The Employee of ID " + employeeId + " and the Device of ID " + deviceId + " were successfully linked." );
     }
+
+    private void verifyIfClientIsTheSame(Long clientEmployeeId, Long clientDeviceId1) {
+        if (clientEmployeeId != clientDeviceId1)
+            throw new ValidationException("Employee and Device cannot be from different clients.");
+    }
+
 }

@@ -32,17 +32,11 @@ public class Device {
     @Column(insertable = false, updatable = false)
     private Long dtype;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
-    private Client clientID;
-
-    /*
-    @ManyToMany(fetch = FetchType.LAZY,
-                mappedBy = "devices")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Set<Employee> employees = new HashSet<>();
-*/
+    private Client client;
+
     @OneToMany(mappedBy = "device")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<EmployeeDevice> employees;
@@ -73,7 +67,7 @@ public class Device {
         BeanUtils.copyProperties(clientResponse, client);
 
         var device = new Device();
-        device.setClientID(client);
+        device.setClient(client);
         device.setBrand(request.getBrand());
         device.setCategory(request.getCategory());
         device.setDescription(request.getDescription());
