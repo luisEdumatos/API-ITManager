@@ -1,29 +1,27 @@
-package com.api.itmanager.modules.infrastructure.device.model;
+package com.api.itmanager.modules.device.model;
 
 import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.client.model.Client;
-import com.api.itmanager.modules.employee.model.Employee;
-import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.api.itmanager.modules.device.dto.DeviceRequest;
+import com.api.itmanager.modules.employee_device.model.EmployeeDevice;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="dtype",
         discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue("1")
+@Entity
 @Table(name = "t_device")
 public class Device {
 
@@ -34,15 +32,20 @@ public class Device {
     @Column(insertable = false, updatable = false)
     private Long dtype;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "client_id", nullable = false)
     private Client clientID;
 
+    /*
     @ManyToMany(fetch = FetchType.LAZY,
-               mappedBy = "devices")
+                mappedBy = "devices")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Employee> employees = new HashSet<>();
+*/
+    @OneToMany(mappedBy = "device")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<EmployeeDevice> employees;
 
     @Column(nullable = false)
     @Size(min = 2, max = 20)
@@ -80,5 +83,4 @@ public class Device {
 
         return device;
     }
-
 }

@@ -1,13 +1,15 @@
-package com.api.itmanager.modules.infrastructure.device.service;
+package com.api.itmanager.modules.device.service;
 
 import com.api.itmanager.modules.client.service.ClientService;
-import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
-import com.api.itmanager.modules.infrastructure.device.dto.DeviceResponse;
-import com.api.itmanager.modules.infrastructure.device.model.Device;
-import com.api.itmanager.modules.infrastructure.device.repository.DeviceRepository;
-import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationRequest;
-import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationResponse;
-import com.api.itmanager.modules.infrastructure.device.workstation.model.WorkStation;
+import com.api.itmanager.modules.device.dto.DeviceRequest;
+import com.api.itmanager.modules.device.dto.DeviceResponse;
+import com.api.itmanager.modules.device.workstation.dto.WorkStationRequest;
+import com.api.itmanager.modules.device.workstation.dto.WorkStationResponse;
+import com.api.itmanager.modules.device.workstation.model.WorkStation;
+import com.api.itmanager.modules.device.model.Device;
+import com.api.itmanager.modules.device.repository.DeviceRepository;
+import com.api.itmanager.modules.employee.service.EmployeeService;
+import com.api.itmanager.util.exception.DeviceNotFoundException;
 import com.api.itmanager.util.response.Response;
 import com.api.itmanager.util.validation.DeviceValidation;
 import lombok.AllArgsConstructor;
@@ -34,6 +36,11 @@ public class DeviceService {
 //                .stream()
 //                .map(DeviceResponse::of)
 //                .toList();;
+    }
+
+    public Device findDeviceById(Long deviceId) {
+        return deviceRepository.findById(deviceId)
+                               .orElseThrow(() -> new DeviceNotFoundException(deviceId));
     }
 
     public List<WorkStationResponse> findAllWorkStationsByClientId(Long clientId) {

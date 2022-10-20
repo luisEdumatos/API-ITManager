@@ -1,10 +1,10 @@
-package com.api.itmanager.modules.infrastructure.device.controller;
+package com.api.itmanager.modules.device.controller;
 
-import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
-import com.api.itmanager.modules.infrastructure.device.dto.DeviceResponse;
-import com.api.itmanager.modules.infrastructure.device.service.DeviceService;
-import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationRequest;
-import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationResponse;
+import com.api.itmanager.modules.device.dto.DeviceRequest;
+import com.api.itmanager.modules.device.dto.DeviceResponse;
+import com.api.itmanager.modules.device.workstation.dto.WorkStationRequest;
+import com.api.itmanager.modules.device.workstation.dto.WorkStationResponse;
+import com.api.itmanager.modules.device.service.DeviceService;
 import com.api.itmanager.util.response.Response;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

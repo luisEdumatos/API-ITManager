@@ -4,8 +4,6 @@ import com.api.itmanager.modules.client.dto.ClientRequest;
 import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.client.model.Client;
 import com.api.itmanager.modules.client.repository.ClientRepository;
-import com.api.itmanager.modules.employee.repository.EmployeeRepository;
-import com.api.itmanager.modules.infrastructure.device.repository.DeviceRepository;
 import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.Response;
 import com.api.itmanager.util.validation.ClientValidation;
@@ -20,12 +18,6 @@ public class ClientService {
 
     @Autowired
     private ClientRepository clientRepository;
-
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
-    @Autowired
-    private DeviceRepository deviceRepository;
 
     public List<ClientResponse> listAll() {
         return clientRepository

@@ -29,6 +29,20 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(EmployeeNotFoundException.class)
+    private final ResponseEntity<Response> handleEmployeeNotFoundException(Exception ex, WebRequest request) {
+        Response response = Response.create(ex.getMessage());
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(DeviceNotFoundException.class)
+    private final ResponseEntity<Response> handleDeviceNotFoundException(Exception ex, WebRequest request) {
+        Response response = Response.create(ex.getMessage());
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {

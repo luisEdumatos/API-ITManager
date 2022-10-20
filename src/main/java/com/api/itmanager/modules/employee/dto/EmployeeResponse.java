@@ -3,18 +3,14 @@ package com.api.itmanager.modules.employee.dto;
 import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.employee.model.Employee;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class EmployeeResponse {
 
     private Long id;

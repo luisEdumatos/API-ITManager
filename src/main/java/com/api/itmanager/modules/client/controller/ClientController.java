@@ -3,7 +3,6 @@ package com.api.itmanager.modules.client.controller;
 import com.api.itmanager.modules.client.dto.ClientRequest;
 import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.client.service.ClientService;
-import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.Response;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

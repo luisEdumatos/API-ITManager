@@ -1,14 +1,14 @@
-package com.api.itmanager.modules.infrastructure.device.workstation.dto;
+package com.api.itmanager.modules.device.workstation.dto;
 
-import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
+import com.api.itmanager.modules.device.dto.DeviceRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-@Data
+@Getter
 @EqualsAndHashCode(callSuper=false)
 @AllArgsConstructor
 @NoArgsConstructor
-public class WorkStationRequest extends DeviceRequest{
+public class WorkStationRequest extends DeviceRequest {
 
     private String location;
     private String label;

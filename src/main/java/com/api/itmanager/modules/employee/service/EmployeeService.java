@@ -5,6 +5,11 @@ import com.api.itmanager.modules.employee.dto.EmployeeRequest;
 import com.api.itmanager.modules.employee.dto.EmployeeResponse;
 import com.api.itmanager.modules.employee.model.Employee;
 import com.api.itmanager.modules.employee.repository.EmployeeRepository;
+import com.api.itmanager.modules.employee_device.model.EmployeeDevice;
+import com.api.itmanager.modules.employee_device.model.EmployeeDeviceId;
+import com.api.itmanager.modules.employee_device.repository.EmployeeDeviceRepository;
+import com.api.itmanager.modules.device.model.Device;
+import com.api.itmanager.modules.device.service.DeviceService;
 import com.api.itmanager.util.exception.EmployeeNotFoundException;
 import com.api.itmanager.util.response.Response;
 import com.api.itmanager.util.validation.EmployeeValidation;
@@ -35,6 +40,11 @@ public class EmployeeService {
                 .findById(id)
                 .map(EmployeeResponse::of)
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
+    }
+
+    public Employee findEmployeeById(Long employeeId) {
+        return employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new EmployeeNotFoundException(employeeId));
     }
 
     public Response createEmployee(EmployeeRequest request) {

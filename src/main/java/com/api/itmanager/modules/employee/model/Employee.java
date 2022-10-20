@@ -3,11 +3,8 @@ package com.api.itmanager.modules.employee.model;
 import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.client.model.Client;
 import com.api.itmanager.modules.employee.dto.EmployeeRequest;
-import com.api.itmanager.modules.infrastructure.device.model.Device;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.api.itmanager.modules.employee_device.model.EmployeeDevice;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.BeanUtils;
@@ -15,14 +12,14 @@ import org.springframework.beans.BeanUtils;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Table(name = "t_employee")
 public class Employee {
 
@@ -30,16 +27,23 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
+    /*
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "t_employee_device",
             joinColumns = { @JoinColumn(name = "employee_id") },
             inverseJoinColumns = { @JoinColumn(name = "device_id") })
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Device> devices = new HashSet<>();
+*/
+
+    @OneToMany(mappedBy = "employee")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<EmployeeDevice> devices;
 
     @Column(nullable = false)
     private String name;

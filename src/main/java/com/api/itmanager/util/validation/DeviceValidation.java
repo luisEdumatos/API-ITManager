@@ -1,6 +1,6 @@
 package com.api.itmanager.util.validation;
 
-import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
+import com.api.itmanager.modules.device.dto.DeviceRequest;
 import com.api.itmanager.util.exception.ValidationException;
 
 import static org.springframework.util.ObjectUtils.isEmpty;

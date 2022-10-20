@@ -1,13 +1,11 @@
-package com.api.itmanager.modules.infrastructure.device.dto;
+package com.api.itmanager.modules.device.dto;
 
-import com.api.itmanager.modules.infrastructure.device.model.Device;
+import com.api.itmanager.modules.device.model.Device;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
