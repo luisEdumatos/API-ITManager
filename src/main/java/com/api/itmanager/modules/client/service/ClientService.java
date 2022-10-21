@@ -8,11 +8,10 @@ import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.Response;
 import com.api.itmanager.util.validation.ClientValidation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientService {
@@ -21,22 +20,21 @@ public class ClientService {
     private ClientRepository clientRepository;
 
     public List<ClientResponse> listAll() {
-        return new ArrayList<>();
-//        return clientRepository
-//                .findAll()
-//                .stream()
-//                .map(ClientResponse::of)
-//                .toList();
+        return clientRepository
+                .findAll()
+                .stream()
+                .map(ClientResponse::of)
+                .collect(Collectors.toList());
     }
 
-    public ClientResponse findById(Long id) throws ClientNotFoundException {
+    public ClientResponse findById(Long id) {
         return clientRepository
                 .findById(id)
                 .map(ClientResponse::of)
                 .orElseThrow(() -> new ClientNotFoundException(id));
     }
 
-    public ClientResponse findByCnpj(String cnpj) throws ClientNotFoundException {
+    public ClientResponse findByCnpj(String cnpj) {
         return clientRepository
                 .findByCnpj(cnpj)
                 .map(ClientResponse::of)
@@ -48,19 +46,19 @@ public class ClientService {
                                                 existsByName(clientRequest.getName()),
                                                 existsByCnpj(clientRequest.getCnpj()));
 
-        Client savedClient = clientRepository.save(Client.of(clientRequest));
+        var savedClient = clientRepository.save(Client.of(clientRequest));
 
-        return new Response(HttpStatus.CREATED.value(), "Created client with ID " + savedClient.getId());
+        return new Response("Created client with ID " + savedClient.getId());
     }
 
-    public Response updateById(Long id, ClientRequest clientRequest) throws ClientNotFoundException {
-        ClientResponse clientResponse = findById(id);
+    public Response updateById(Long id, ClientRequest clientRequest) {
+        var clientResponse = findById(id);
 
         ClientValidation.clientUpdateValidation(clientRequest, clientResponse, existsByName(clientRequest.getName()), existsByCnpj(clientRequest.getCnpj()));
 
         clientRepository.save(createClientToUpdate(id, clientRequest));
 
-        return new Response(HttpStatus.OK.value(), "Updated client with ID " + id);
+        return new Response("Updated client with ID " + id);
     }
 
     private Client createClientToUpdate(Long id, ClientRequest request) {
@@ -69,11 +67,11 @@ public class ClientService {
         return clientToUpdate;
     }
 
-    public Response delete(Long id) throws ClientNotFoundException {
+    public Response delete(Long id) {
         findById(id);
         clientRepository.deleteById(id);
 
-        return new Response(HttpStatus.OK.value(), "Deleted client with ID " + id);
+        return new Response("Deleted client with ID " + id);
     }
 
     public boolean existsByName(String name) {

@@ -3,34 +3,22 @@ package com.api.itmanager.util.validation;
 import com.api.itmanager.modules.employee.dto.EmployeeRequest;
 import com.api.itmanager.util.exception.ValidationException;
 
-import static org.springframework.util.ObjectUtils.isEmpty;
-
 public class EmployeeValidation {
     private static final int DATE_SIZE = 10;
 
+    private EmployeeValidation() { }
+
     public static void employeeCreateOrUpdateValidation(EmployeeRequest request) {
-        if (isEmpty(request.getName())) {
+        if (request.getName().isBlank()) {
             throw new ValidationException("The employee's name was not informed.");
         }
 
-        if (isEmpty(request.getAdmissionDate())) {
+        if (request.getAdmissionDate() == null) {
             throw new ValidationException("The employee's admission date was not informed.");
         }
 
-        if (isEmpty(request.getClientId())) {
+        if (request.getClientId() == null) {
             throw new ValidationException("The client ID was not informed.");
-        }
-
-        if (request.getAdmissionDate().length() != DATE_SIZE) {
-            throw new ValidationException("The employee's admission date must have exactly 10 digits, including the separator bars.");
-        }
-
-        if (request.getIntegrationDate() != null && request.getIntegrationDate().length() != DATE_SIZE) {
-            throw new ValidationException("The employee's integration date must have exactly 10 digits, including the separator bars.");
-        }
-
-        if (request.getResignationDate() != null && request.getResignationDate().length() != DATE_SIZE) {
-            throw new ValidationException("The employee's resignation date must have exactly 10 digits, including the separator bars.");
         }
     }
 }

@@ -1,11 +1,9 @@
-package com.api.itmanager.modules.infrastructure.device.dto;
+package com.api.itmanager.modules.device.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-@Data
-@Builder
-@EqualsAndHashCode
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeviceRequest {
