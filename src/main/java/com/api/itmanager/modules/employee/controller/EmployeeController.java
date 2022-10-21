@@ -25,6 +25,16 @@ public class EmployeeController {
 
     //TODO Implementar metodo findAllByClientId
 
+    @ApiOperation(value = "Retorna todos colaboradores de determinado Cliente")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna todos colaboradores do cliente informado. Lista vazia caso não encontre."),
+            @ApiResponse(code = 400, message = "Erro de passagem de parâmetro")
+    })
+    @GetMapping(value = "/client/{clientId}", produces = "application/json")
+    public List<EmployeeResponse> findAllByClientId(@PathVariable Long clientId) {
+        return employeeService.findAllByClientId(clientId);
+    }
+
     @ApiOperation(value = "Retorna o colaborador informado por ID")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Retorna o colaborador referente ao ID informado"),
