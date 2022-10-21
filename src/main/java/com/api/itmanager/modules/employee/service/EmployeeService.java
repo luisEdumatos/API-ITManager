@@ -22,6 +22,14 @@ public class EmployeeService {
     private EmployeeRepository employeeRepository;
     private ClientService clientService;
 
+    public List<EmployeeResponse> findAllByClientId(Long clientId) {
+        return employeeRepository
+                .findAllEmployeesByClientId(clientId)
+                .stream()
+                .map(EmployeeResponse::of)
+                .collect(Collectors.toList());
+    }
+
     public EmployeeResponse findById(Long id) {
         return employeeRepository
                 .findById(id)
