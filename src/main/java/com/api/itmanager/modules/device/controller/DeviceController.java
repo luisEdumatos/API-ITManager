@@ -1,11 +1,10 @@
-package com.api.itmanager.modules.infrastructure.device.controller;
+package com.api.itmanager.modules.device.controller;
 
-import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
-import com.api.itmanager.modules.infrastructure.device.dto.DeviceResponse;
-import com.api.itmanager.modules.infrastructure.device.service.DeviceService;
-import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationRequest;
-import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationResponse;
-import com.api.itmanager.util.exception.ClientNotFoundException;
+import com.api.itmanager.modules.device.dto.DeviceRequest;
+import com.api.itmanager.modules.device.dto.DeviceResponse;
+import com.api.itmanager.modules.device.workstation.dto.WorkStationRequest;
+import com.api.itmanager.modules.device.workstation.dto.WorkStationResponse;
+import com.api.itmanager.modules.device.service.DeviceService;
 import com.api.itmanager.util.response.Response;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -53,7 +52,7 @@ public class DeviceController {
     })
     @PostMapping(consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Response createDevice(@RequestBody @Valid DeviceRequest request) throws ClientNotFoundException {
+    public Response createDevice(@RequestBody DeviceRequest request) {
         return deviceService.createDevice(request);
     }
 
@@ -64,7 +63,26 @@ public class DeviceController {
     })
     @PostMapping(value = "/worksation",consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Response createWorkStation(@RequestBody @Valid WorkStationRequest request) throws ClientNotFoundException {
+    public Response createWorkStation(@RequestBody @Valid WorkStationRequest request) {
         return deviceService.createWorkStation(request);
     }
+
+    //TODO Implementar UpdateDevice
+    //TODO Implementar UpdateWorkstation
+    //TODO Implementar DeleteById
+
+    /*
+    @ApiOperation(value = "Deleta equipamento informado pelo ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Equipamento deletado com sucesso"),
+            @ApiResponse(code = 405, message = "Falta de ID no parâmetro"),
+            @ApiResponse(code = 404, message = "Equipamento não encontrado para o ID informado"),
+    })
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Response deleteById(@PathVariable Long id) {
+        return deviceService.delete(id);
+    }
+
+     */
 }

@@ -1,14 +1,16 @@
-package com.api.itmanager.modules.infrastructure.device.workstation.dto;
+package com.api.itmanager.modules.device.workstation.dto;
 
-import com.api.itmanager.modules.infrastructure.device.dto.DeviceResponse;
-import com.api.itmanager.modules.infrastructure.device.model.Device;
-import com.api.itmanager.modules.infrastructure.device.workstation.model.WorkStation;
+import com.api.itmanager.modules.device.dto.DeviceResponse;
+import com.api.itmanager.modules.device.workstation.model.WorkStation;
+import com.api.itmanager.modules.device.model.Device;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class WorkStationResponse extends DeviceResponse {
@@ -36,7 +38,7 @@ public class WorkStationResponse extends DeviceResponse {
         response.setMacAddress(ws.getMacAddress());
         response.setIpAddress(ws.getIpAddress());
         response.setDescription(ws.getDescription());
-        response.setClient(ws.getClientID().getId());
+        response.setClient(ws.getClient().getId());
         response.setLocation(ws.getLocation());
         response.setLabel(ws.getLabel());
         response.setManufacturingDate(ws.getManufacturingDate());
@@ -49,5 +51,4 @@ public class WorkStationResponse extends DeviceResponse {
 
         return response;
     }
-
 }

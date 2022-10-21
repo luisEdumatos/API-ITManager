@@ -3,7 +3,6 @@ package com.api.itmanager.modules.client.controller;
 import com.api.itmanager.modules.client.dto.ClientRequest;
 import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.client.service.ClientService;
-import com.api.itmanager.util.exception.ClientNotFoundException;
 import com.api.itmanager.util.response.Response;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -40,8 +38,19 @@ public class ClientController {
             @ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado"),
     })
     @GetMapping(value = "/{id}", produces = "application/json")
-    public ClientResponse findById(@PathVariable Long id) throws ClientNotFoundException {
+    public ClientResponse findById(@PathVariable Long id) {
         return clientService.findById(id);
+    }
+
+    @ApiOperation(value = "Retorna o cliente informado por CNPJ")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna o cliente referente ao CNPJ informado"),
+            @ApiResponse(code = 400, message = "Erro de passagem de parâmetro"),
+            @ApiResponse(code = 404, message = "Cliente não encontrado para o CNPJ informado"),
+    })
+    @GetMapping(value = "/cnpj/{cnpj}", produces = "application/json")
+    public ClientResponse findByCnpj(@PathVariable String cnpj) {
+        return clientService.findByCnpj(cnpj);
     }
 
     @ApiOperation(value = "Cria um novo cliente")
@@ -51,7 +60,7 @@ public class ClientController {
     })
     @PostMapping(consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Response createClient(@RequestBody @Valid ClientRequest request) {
+    public Response createClient(@RequestBody ClientRequest request) {
         return clientService.createClient(request);
     }
 
@@ -63,7 +72,7 @@ public class ClientController {
             @ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado"),
     })
     @PutMapping(value = "/{id}", produces = "application/json")
-    public Response updateById(@PathVariable Long id, @RequestBody @Valid ClientRequest request) throws ClientNotFoundException {
+    public Response updateById(@PathVariable Long id, @RequestBody ClientRequest request) {
         return clientService.updateById(id, request);
     }
 
@@ -75,7 +84,7 @@ public class ClientController {
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Response deleteById(@PathVariable Long id) throws ClientNotFoundException {
+    public Response deleteById(@PathVariable Long id) {
         return clientService.delete(id);
     }
 }

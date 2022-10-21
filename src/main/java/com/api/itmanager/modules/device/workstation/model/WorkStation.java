@@ -1,24 +1,21 @@
-package com.api.itmanager.modules.infrastructure.device.workstation.model;
+package com.api.itmanager.modules.device.workstation.model;
 
 import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.client.model.Client;
-import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
-import com.api.itmanager.modules.infrastructure.device.model.Device;
-import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationRequest;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.api.itmanager.modules.device.model.Device;
+import com.api.itmanager.modules.device.workstation.dto.WorkStationRequest;
+import lombok.*;
 import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
-@Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @DiscriminatorValue("2")
+@Entity
 public class WorkStation extends Device {
 
     @Column
@@ -62,7 +59,7 @@ public class WorkStation extends Device {
         BeanUtils.copyProperties(clientResponse, client);
 
         var device = new WorkStation();
-        device.setClientID(client);
+        device.setClient(client);
         device.setBrand(request.getBrand());
         device.setCategory(request.getCategory());
         device.setDescription(request.getDescription());

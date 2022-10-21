@@ -1,13 +1,11 @@
 package com.api.itmanager.modules.employee.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@Builder
+import java.time.LocalDate;
+
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeRequest {
@@ -16,11 +14,11 @@ public class EmployeeRequest {
     private Long clientId;
     private String name;
     @JsonProperty("admission_date")
-    private String admissionDate;
+    private LocalDate admissionDate;
     @JsonProperty("integration_date")
-    private String integrationDate;
+    private LocalDate integrationDate;
     @JsonProperty("resignation_date")
-    private String resignationDate;
+    private LocalDate resignationDate;
     @JsonProperty("phone_number")
     private String phoneNumber;
 }

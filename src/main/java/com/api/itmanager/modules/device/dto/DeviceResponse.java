@@ -1,16 +1,11 @@
-package com.api.itmanager.modules.infrastructure.device.dto;
+package com.api.itmanager.modules.device.dto;
 
-import com.api.itmanager.modules.client.dto.ClientResponse;
-import com.api.itmanager.modules.infrastructure.device.model.Device;
-import com.api.itmanager.modules.infrastructure.device.workstation.dto.WorkStationResponse;
-import com.api.itmanager.modules.infrastructure.device.workstation.model.WorkStation;
+import com.api.itmanager.modules.device.model.Device;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,7 +33,7 @@ public class DeviceResponse {
                 .macAddress(device.getMacAddress())
                 .ipAddress(device.getIpAddress())
                 .description(device.getDescription())
-                .client(device.getClientID().getId())
+                .client(device.getClient().getId())
                 .build();
     }
 

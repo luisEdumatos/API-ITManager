@@ -1,18 +1,14 @@
 package com.api.itmanager.util.validation;
 
-import com.api.itmanager.modules.infrastructure.device.dto.DeviceRequest;
+import com.api.itmanager.modules.device.dto.DeviceRequest;
 import com.api.itmanager.util.exception.ValidationException;
-
-import static org.springframework.util.ObjectUtils.isEmpty;
 
 public class DeviceValidation {
 
+    private DeviceValidation() { }
+
     public static void deviceCreateValidation(DeviceRequest request) {
         deviceGeneralValidation(request);
-    }
-
-    public static void deviceUpdateValidation() {
-
     }
 
     public static void deviceGeneralValidation(DeviceRequest request) {
@@ -20,15 +16,15 @@ public class DeviceValidation {
             throw new ValidationException("The client's id was not informed.");
         }
 
-        if (isEmpty(request.getCategory())) {
+        if (request.getCategory().isBlank()) {
             throw new ValidationException("The device's category was not informed.");
         }
 
-        if (isEmpty(request.getBrand())) {
+        if (request.getBrand().isBlank()) {
             throw new ValidationException("The device's brand was not informed.");
         }
 
-        if (isEmpty(request.getModel())) {
+        if (request.getModel().isBlank()) {
             throw new ValidationException("The device's model was not informed.");
         }
     }

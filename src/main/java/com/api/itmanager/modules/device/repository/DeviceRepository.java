@@ -1,7 +1,6 @@
-package com.api.itmanager.modules.infrastructure.device.repository;
+package com.api.itmanager.modules.device.repository;
 
-import com.api.itmanager.modules.infrastructure.device.model.Device;
-import com.api.itmanager.modules.infrastructure.device.workstation.model.WorkStation;
+import com.api.itmanager.modules.device.model.Device;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

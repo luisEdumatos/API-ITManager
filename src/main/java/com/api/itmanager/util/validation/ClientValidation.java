@@ -4,11 +4,11 @@ import com.api.itmanager.modules.client.dto.ClientRequest;
 import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.util.exception.ValidationException;
 
-import static org.springframework.util.ObjectUtils.isEmpty;
-
 public class ClientValidation {
     private static final int CNPJ_SIZE = 14;
     private static final String NUMERIC_MATCH = "[+-]?\\d*(\\.\\d+)?";
+
+    private ClientValidation() { }
 
     public static void clientCreateValidation(ClientRequest request, boolean existsByName, boolean existsByCnpj) {
         clientGeneralValidation(request);
@@ -39,11 +39,11 @@ public class ClientValidation {
     }
 
     private static void clientGeneralValidation(ClientRequest request) {
-        if (isEmpty(request.getName())) {
+        if (request.getName().isBlank()) {
             throw new ValidationException("The client's name was not informed.");
         }
 
-        if (isEmpty(request.getCnpj())) {
+        if (request.getCnpj().isBlank()) {
             throw new ValidationException("The client's CNPJ was not informed.");
         }
 
@@ -55,7 +55,7 @@ public class ClientValidation {
             throw new ValidationException("The client's CNPJ must contain only numbers. ");
         }
 
-        if (isEmpty(request.getAddress())) {
+        if (request.getAddress().isBlank()) {
             throw new ValidationException("The client's address was not informed.");
         }
     }

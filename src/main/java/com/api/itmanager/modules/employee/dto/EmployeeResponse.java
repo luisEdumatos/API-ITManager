@@ -2,35 +2,32 @@ package com.api.itmanager.modules.employee.dto;
 
 import com.api.itmanager.modules.client.dto.ClientResponse;
 import com.api.itmanager.modules.employee.model.Employee;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class EmployeeResponse {
 
     private Long id;
     private String name;
     @JsonProperty("admission_date")
-    private String admissionDate;
+    private LocalDate admissionDate;
     @JsonProperty("integration_date")
-    private String integrationDate;
+    private LocalDate integrationDate;
     @JsonProperty("resignation_date")
-    private String resignationDate;
+    private LocalDate resignationDate;
     @JsonProperty("phone_number")
     private String phoneNumber;
     @JsonProperty("created_at")
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime createdAt;
-    private ClientResponse client;
+    @JsonIgnore
+    private ClientResponse client; //TODO Avaliar necessidade de manter essa informação
 
     public static EmployeeResponse of(Employee employee) {
         return EmployeeResponse

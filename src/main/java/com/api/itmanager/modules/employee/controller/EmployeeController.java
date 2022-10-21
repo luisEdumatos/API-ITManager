@@ -3,8 +3,6 @@ package com.api.itmanager.modules.employee.controller;
 import com.api.itmanager.modules.employee.dto.EmployeeRequest;
 import com.api.itmanager.modules.employee.dto.EmployeeResponse;
 import com.api.itmanager.modules.employee.service.EmployeeService;
-import com.api.itmanager.util.exception.ClientNotFoundException;
-import com.api.itmanager.util.exception.EmployeeNotFoundException;
 import com.api.itmanager.util.response.Response;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -25,13 +23,16 @@ public class EmployeeController {
 
     private EmployeeService employeeService;
 
-    @ApiOperation(value = "Retorna a lista de colaboradores existentes")
+    //TODO Implementar metodo findAllByClientId
+
+    @ApiOperation(value = "Retorna todos colaboradores de determinado Cliente")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Retorna a lista de colaboradores, caso não existir, retorna lista vazia")
+            @ApiResponse(code = 200, message = "Retorna todos colaboradores do cliente informado. Lista vazia caso não encontre."),
+            @ApiResponse(code = 400, message = "Erro de passagem de parâmetro")
     })
-    @GetMapping(produces = "application/json")
-    public List<EmployeeResponse> listAll() {
-        return employeeService.listAll();
+    @GetMapping(value = "/client/{clientId}", produces = "application/json")
+    public List<EmployeeResponse> findAllByClientId(@PathVariable Long clientId) {
+        return employeeService.findAllByClientId(clientId);
     }
 
     @ApiOperation(value = "Retorna o colaborador informado por ID")
@@ -41,7 +42,7 @@ public class EmployeeController {
             @ApiResponse(code = 404, message = "Colaborador não encontrado para o ID informado"),
     })
     @GetMapping(value = "/{id}", produces = "application/json")
-    public EmployeeResponse findById(@PathVariable Long id) throws EmployeeNotFoundException {
+    public EmployeeResponse findById(@PathVariable Long id) {
         return employeeService.findById(id);
     }
 
@@ -52,7 +53,7 @@ public class EmployeeController {
     })
     @PostMapping(consumes="application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Response createEmployee(@RequestBody @Valid EmployeeRequest request) throws ClientNotFoundException {
+    public Response createEmployee(@RequestBody @Valid EmployeeRequest request) {
         return employeeService.createEmployee(request);
     }
 
@@ -65,7 +66,7 @@ public class EmployeeController {
             @ApiResponse(code = 500, message = "ID de entidade relacionada não encontrado"),
     })
     @PutMapping(value = "/{id}", produces = "application/json")
-    public Response updateByID(@PathVariable Long id, @RequestBody @Valid EmployeeRequest request) throws EmployeeNotFoundException, ClientNotFoundException {
+    public Response updateByID(@PathVariable Long id, @RequestBody @Valid EmployeeRequest request) {
         return employeeService.updateByID(id, request);
     }
 
@@ -77,7 +78,7 @@ public class EmployeeController {
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Response deleteById(@PathVariable Long id) throws EmployeeNotFoundException {
+    public Response deleteById(@PathVariable Long id) {
         return employeeService.delete(id);
     }
 }
