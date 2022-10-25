@@ -7,6 +7,7 @@ import com.api.itmanager.modules.employee.service.EmployeeService;
 import com.api.itmanager.modules.employee_device.model.EmployeeDevice;
 import com.api.itmanager.modules.employee_device.model.EmployeeDeviceId;
 import com.api.itmanager.modules.employee_device.repository.EmployeeDeviceRepository;
+import com.api.itmanager.util.exception.EmployeeDeviceNotFoundException;
 import com.api.itmanager.util.exception.ValidationException;
 import com.api.itmanager.util.response.Response;
 import lombok.AllArgsConstructor;
@@ -44,4 +45,13 @@ public class EmployeeDeviceService {
             throw new ValidationException("Employee and Device cannot be from different clients.");
     }
 
+    public Response removeEmployeeDevice(Long employeeId, Long deviceId) {
+        EmployeeDeviceId employeeDeviceId = new EmployeeDeviceId(employeeId, deviceId);
+
+        employeeDeviceRepository.findById(employeeDeviceId).orElseThrow(() -> new EmployeeDeviceNotFoundException(employeeId, deviceId));
+
+        employeeDeviceRepository.deleteById(employeeDeviceId);
+
+        return new Response("Removed relationship between the employee " + employeeId + " and the equipment " + deviceId);
+    }
 }
