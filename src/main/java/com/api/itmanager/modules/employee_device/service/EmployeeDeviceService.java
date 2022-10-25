@@ -1,7 +1,9 @@
 package com.api.itmanager.modules.employee_device.service;
 
+import com.api.itmanager.modules.device.dto.DeviceResponse;
 import com.api.itmanager.modules.device.model.Device;
 import com.api.itmanager.modules.device.service.DeviceService;
+import com.api.itmanager.modules.device.workstation.dto.WorkStationResponse;
 import com.api.itmanager.modules.employee.model.Employee;
 import com.api.itmanager.modules.employee.service.EmployeeService;
 import com.api.itmanager.modules.employee_device.model.EmployeeDevice;
@@ -13,6 +15,9 @@ import com.api.itmanager.util.response.Response;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -54,4 +59,21 @@ public class EmployeeDeviceService {
 
         return new Response("Removed relationship between the employee " + employeeId + " and the equipment " + deviceId);
     }
+
+    public List<DeviceResponse> findAllDeviceByEmployeeId(Long employeeId) {
+        List<Device> devices = deviceService.findAllDeviceByEmployeeId(employeeId);
+
+        List<DeviceResponse> responses = devices.stream()
+                                                .filter(d -> d.getDtype() == 1)
+                                                .map(DeviceResponse::of)
+                                                .collect(Collectors.toList());
+
+        responses.addAll(devices.stream()
+                                .filter(d -> d.getDtype() == 2)
+                                .map(WorkStationResponse::of)
+                                .collect(Collectors.toList()));
+
+        return responses;
+    }
+
 }

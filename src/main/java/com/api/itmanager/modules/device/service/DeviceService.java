@@ -45,11 +45,6 @@ public class DeviceService {
                 .collect(Collectors.toList());
     }
 
-    public Device findDeviceById(Long deviceId) {
-        return deviceRepository.findById(deviceId)
-                .orElseThrow(() -> new DeviceNotFoundException(deviceId));
-    }
-
     public Response createDevice(DeviceRequest request) {
         DeviceValidation.deviceCreateValidation(request);
 
@@ -68,6 +63,15 @@ public class DeviceService {
         var device = deviceRepository.save(WorkStation.of(request, client));
 
         return new Response("Created workstation with ID " + device.getId());
+    }
+
+    public Device findDeviceById(Long deviceId) {
+        return deviceRepository.findById(deviceId)
+                .orElseThrow(() -> new DeviceNotFoundException(deviceId));
+    }
+
+    public List<Device> findAllDeviceByEmployeeId(Long idEmployee) {
+        return deviceRepository.findAllDeviceByEmployeeId(idEmployee);
     }
 /*
     public Response delete(Long id) {
