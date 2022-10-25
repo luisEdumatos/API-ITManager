@@ -49,10 +49,10 @@ public class Device {
     @Column(nullable = false)
     private String model;
 
-    @Column(name = "mac_address", length = 12)
+    @Column(name = "mac_address", length = 17)
     private String macAddress;
 
-    @Column(name = "ip_address", length = 12)
+    @Column(name = "ip_address", length = 15)
     private String ipAddress;
 
     @Column

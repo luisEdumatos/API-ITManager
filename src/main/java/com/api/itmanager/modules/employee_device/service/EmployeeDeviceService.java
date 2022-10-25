@@ -21,7 +21,7 @@ public class EmployeeDeviceService {
     private EmployeeService employeeService;
     private DeviceService deviceService;
 
-    public Response createEmployeeDevice(Long employeeId, Long deviceId) {
+    public Response joinEmployeeDevice(Long employeeId, Long deviceId) {
         Employee employee = employeeService.findEmployeeById(employeeId);
         Device device = deviceService.findDeviceById(deviceId);
 

@@ -24,8 +24,8 @@ public class EmployeeDeviceController {
             @ApiResponse(code = 404, message = "Colaborador ou Equipamento não foram encontrados"),
     })
     @PutMapping(value = "/{idEmployee}/device/{idDevice}", produces = "application/json")
-    public Response createEmployeeDevice(@PathVariable Long idEmployee, @PathVariable Long idDevice) {
-        return employeeDeviceService.createEmployeeDevice(idEmployee, idDevice);
+    public Response joinEmployeeDevice(@PathVariable Long idEmployee, @PathVariable Long idDevice) {
+        return employeeDeviceService.joinEmployeeDevice(idEmployee, idDevice);
     }
 
     //TODO Implementar findAllDeviceByEmployeeId
