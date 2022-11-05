@@ -30,11 +30,11 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    public EmployeeResponse findById(Long id) {
+    public EmployeeResponse findByEmployeeAndClientId(Long employeeId, Long clientId) {
         return employeeRepository
-                .findById(id)
+                .findByEmployeeAndClientId(employeeId, clientId)
                 .map(EmployeeResponse::of)
-                .orElseThrow(() -> new EmployeeNotFoundException(id));
+                .orElseThrow(() -> new EmployeeNotFoundException(employeeId));
     }
 
     public Employee findEmployeeById(Long employeeId) {
@@ -53,9 +53,9 @@ public class EmployeeService {
     }
 
     public Response updateByID(Long id, EmployeeRequest request) {
-        findById(id);
-
         EmployeeValidation.employeeCreateOrUpdateValidation(request);
+
+        findByEmployeeAndClientId(id, request.getClientId());
 
         employeeRepository.save(createEmployeeToUpdate(id, request));
 
@@ -72,7 +72,6 @@ public class EmployeeService {
     }
 
     public Response delete(Long id) {
-        findById(id);
         employeeRepository.deleteById(id);
 
         return new Response("Deleted employee with ID " + id);
