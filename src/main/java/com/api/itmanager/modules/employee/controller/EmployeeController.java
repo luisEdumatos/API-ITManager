@@ -23,7 +23,8 @@ public class EmployeeController {
 
     private EmployeeService employeeService;
 
-    //TODO Implementar metodo findAllByClientId
+    //TODO Implementar findAllActiveEmployeesByClientId (ResignationDate null)
+    //TODO Implementar findAllInactiveEmployeesByClientId (ResignationDate not null)
 
     @ApiOperation(value = "Retorna todos colaboradores de determinado Cliente")
     @ApiResponses(value = {
