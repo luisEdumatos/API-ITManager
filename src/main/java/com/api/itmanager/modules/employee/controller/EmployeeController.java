@@ -42,9 +42,9 @@ public class EmployeeController {
             @ApiResponse(code = 400, message = "Erro de passagem de parâmetro"),
             @ApiResponse(code = 404, message = "Colaborador não encontrado para o ID informado"),
     })
-    @GetMapping(value = "/{id}", produces = "application/json")
-    public EmployeeResponse findById(@PathVariable Long id) {
-        return employeeService.findById(id);
+    @GetMapping(value = "/{employeeId}/client/{clientId}", produces = "application/json")
+    public EmployeeResponse findByEmployeeAndClientId(@PathVariable Long employeeId, Long clientId) {
+        return employeeService.findByEmployeeAndClientId(employeeId, clientId);
     }
 
     @ApiOperation(value = "Cria um novo colaborador")
