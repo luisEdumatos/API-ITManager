@@ -4,6 +4,7 @@ import com.api.itmanager.modules.device.dto.DeviceResponse;
 import com.api.itmanager.modules.device.model.Device;
 import com.api.itmanager.modules.device.service.DeviceService;
 import com.api.itmanager.modules.device.workstation.dto.WorkStationResponse;
+import com.api.itmanager.modules.employee.dto.EmployeeResponse;
 import com.api.itmanager.modules.employee.model.Employee;
 import com.api.itmanager.modules.employee.service.EmployeeService;
 import com.api.itmanager.modules.employee_device.model.EmployeeDevice;
@@ -76,4 +77,12 @@ public class EmployeeDeviceService {
         return responses;
     }
 
+    public List<EmployeeResponse> findAllEmployeeByDeviceId(Long deviceId) {
+        List<Employee> employees = employeeService.findAllEmployeeByDeviceId(deviceId);
+
+        List<EmployeeResponse> responses = employees.stream()
+                                                    .map(EmployeeResponse::of)
+                                                    .collect(Collectors.toList());
+        return responses;
+    }
 }
