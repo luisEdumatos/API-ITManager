@@ -77,4 +77,9 @@ public class EmployeeService {
 
         return new Response("Deleted employee with ID " + id);
     }
+
+    public List<Employee> findAllEmployeeByDeviceId(Long deviceId) {
+        return employeeRepository.findAllEmployeeByDeviceId(deviceId);
+    }
+
 }

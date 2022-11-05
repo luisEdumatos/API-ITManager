@@ -1,6 +1,7 @@
 package com.api.itmanager.modules.employee_device.controller;
 
 import com.api.itmanager.modules.device.dto.DeviceResponse;
+import com.api.itmanager.modules.employee.dto.EmployeeResponse;
 import com.api.itmanager.modules.employee_device.service.EmployeeDeviceService;
 import com.api.itmanager.util.response.Response;
 import io.swagger.annotations.ApiOperation;
@@ -50,11 +51,17 @@ public class EmployeeDeviceController {
             @ApiResponse(code = 400, message = "Erro de passagem de parâmetro")
     })
     @GetMapping(value = "/employee/{idEmployee}", produces = "application/json")
-    public List<DeviceResponse> findAllDeviceByEmployeeId(@PathVariable Long idEmployee) {
-        return employeeDeviceService.findAllDeviceByEmployeeId(idEmployee);
+    public List<DeviceResponse> findAllDeviceByEmployeeId(@PathVariable Long employeeId) {
+        return employeeDeviceService.findAllDeviceByEmployeeId(employeeId);
     }
 
-
-    //TODO Implementar findAllDeviceByEmployeeId
-    //TODO Implementar findAllEmployeeByDeviceId
+    @ApiOperation(value = "Retorna todos Colaboradores relacionados a determinado Equipamento")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna todos Colaboradores relacionados ao Equipamento informado. Lista vazia caso não encontre."),
+            @ApiResponse(code = 400, message = "Erro de passagem de parâmetro"),
+    })
+    @GetMapping(value = "/device/{idDevice}", produces = "application/json")
+    public List<EmployeeResponse> findAllEmployeeByDeviceId(@PathVariable Long deviceId) {
+        return employeeDeviceService.findAllEmployeeByDeviceId(deviceId);
+    }
 }
